@@ -2,4 +2,4 @@
 
 ## Medieval Fishing (working title)
 
-![Mockup](/MedievalFishing2.png)
+![Mockup](/images/MedievalFishing2.png)
