@@ -9,16 +9,17 @@ public class FishAI : MonoBehaviour
 	{
 		Idle,
 		Swim,
-		Flee,
 		Chase
 	}
 
 	private State currentState;
-	private Rigidbody rbody;
 	private Vector3 originalPosition;
 	private Vector3 targetPosition;
+	private Rigidbody rbody;
+	private GameObject targetBait;
 	private float duration;
-
+	
+	public LayerMask layerMask;
 	public FishStats fishStats;
 
 	void Start ()
@@ -28,7 +29,7 @@ public class FishAI : MonoBehaviour
 		duration = GetRandomDuration();
 	}
 	
-	void Update ()
+	void FixedUpdate ()
 	{
 		switch(currentState)
 		{
@@ -37,9 +38,16 @@ public class FishAI : MonoBehaviour
 				duration -= Time.deltaTime;
 				if (duration < 0)
 				{
-					var randomInsideEllipsoid = Vector3.Scale(Random.insideUnitSphere, new Vector3(1, 0.1f, 1));
-					targetPosition = (originalPosition + randomInsideEllipsoid) * fishStats.swimAreaRadius;
-					currentState = State.Swim;
+					targetBait = GetNearbyBait();
+					if (targetBait)
+					{
+						ChangeState(State.Chase);
+					} else
+					{
+						var randomInsideEllipsoid = Vector3.Scale(Random.insideUnitSphere, new Vector3(1, 0.1f, 1));
+						targetPosition = (originalPosition + randomInsideEllipsoid) * fishStats.swimAreaRadius;
+						ChangeState(State.Swim);
+					}
 				}
 				break;
 			}
@@ -47,12 +55,10 @@ public class FishAI : MonoBehaviour
 			{
 				// reset when close to target
 				if (Vector3.SqrMagnitude(this.transform.position - targetPosition) < 0.1){
-					currentState = State.Idle;
-					duration = GetRandomDuration();
-				}
-				else
+					ChangeState(State.Idle);
+				} else
 				{
-					// todo: fixed update and deltatime
+					// always turn to target to prevent getting of track
 					transform.LookAt(targetPosition);
 					rbody.AddRelativeForce(Vector3.forward * fishStats.swimSpeed);
 				}
@@ -60,7 +66,18 @@ public class FishAI : MonoBehaviour
 			}
 			case State.Chase:
 			{
-				
+				Debug.Log("did chase");
+				var dist = Vector3.Distance(this.transform.position, targetBait.transform.position);
+				print(dist);
+				if (dist > fishStats.stopChasingAtDistance) 
+				{
+					targetBait = null;
+					ChangeState(State.Idle);
+				} else
+				{
+					transform.LookAt(targetBait.transform.position);
+					rbody.AddRelativeForce(Vector3.forward * fishStats.chaseSpeed);
+				}
 				break;
 			}
 		}
@@ -81,10 +98,30 @@ public class FishAI : MonoBehaviour
 		}
 	}
 
-	void GetNearColliders()
+	void ChangeState (State state) {
+
+		if (state == State.Idle) {
+			duration = GetRandomDuration();
+		}
+
+		currentState = state;
+	}
+
+	GameObject GetNearbyBait()
 	{
-		// todo: fix
-		Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, fishStats.sightRadius);
+		Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, fishStats.sightRadius, layerMask);
+
+		foreach(Collider col in hitColliders)
+		{
+			var bait = col.gameObject.GetComponent<Bait>();
+			if (bait && fishStats.attactToList.Contains(bait.type) )
+			{
+				print("test");
+				return bait.gameObject;
+			}
+		}
+
+		return null;
 	}
 
 	float GetRandomDuration ()
