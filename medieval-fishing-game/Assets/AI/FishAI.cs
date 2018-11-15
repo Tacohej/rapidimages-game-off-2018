@@ -12,15 +12,22 @@ public class FishAI : MonoBehaviour
 		Chase
 	}
 
-	private State currentState;
-	private Vector3 originalPosition;
-	private Vector3 targetPosition;
-	private Rigidbody rbody;
-	private GameObject targetBait;
-	private float duration;
 	
 	public LayerMask layerMask;
 	public FishStats fishStats;
+
+	[Header("Read only variables")]
+	[SerializeField]
+	private State currentState;
+	[SerializeField]
+	private GameObject targetBait;
+	[SerializeField]
+
+	private float duration;
+	private Vector3 originalPosition;
+	private Vector3 targetPosition;
+	private Rigidbody rbody;
+	
 
 	void Start ()
 	{
@@ -35,7 +42,7 @@ public class FishAI : MonoBehaviour
 		{
 			case State.Idle: 
 			{
-				duration -= Time.deltaTime;
+				duration -= Time.fixedDeltaTime;
 				if (duration < 0)
 				{
 					targetBait = GetNearbyBait();
@@ -45,7 +52,7 @@ public class FishAI : MonoBehaviour
 					} else
 					{
 						var randomInsideEllipsoid = Vector3.Scale(Random.insideUnitSphere, new Vector3(1, 0.1f, 1));
-						targetPosition = (originalPosition + randomInsideEllipsoid) * fishStats.swimAreaRadius;
+						targetPosition = originalPosition + randomInsideEllipsoid * fishStats.swimAreaRadius;
 						ChangeState(State.Swim);
 					}
 				}
@@ -66,10 +73,9 @@ public class FishAI : MonoBehaviour
 			}
 			case State.Chase:
 			{
-				Debug.Log("did chase");
 				var dist = Vector3.Distance(this.transform.position, targetBait.transform.position);
-				print(dist);
-				if (dist > fishStats.stopChasingAtDistance) 
+				// if (dist > fishStats.stopChasingAtDistance)
+				if (dist > fishStats.sightRadius * 2)
 				{
 					targetBait = null;
 					ChangeState(State.Idle);
@@ -116,7 +122,6 @@ public class FishAI : MonoBehaviour
 			var bait = col.gameObject.GetComponent<Bait>();
 			if (bait && fishStats.attactToList.Contains(bait.type) )
 			{
-				print("test");
 				return bait.gameObject;
 			}
 		}

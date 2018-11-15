@@ -11,14 +11,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e0a1fb183bc9547b336d672a5e3d99, type: 3}
   m_Name: New Fish Stats
   m_EditorClassIdentifier: 
-  fishName: 
-  swimSpeed: 2
-  chaseSpeed: 5
-  swimAreaRadius: 13
-  sightRadius: 7
+  fishName: Common Fish
+  swimSpeed: 5
+  chaseSpeed: 15
+  swimAreaRadius: 25
+  sightRadius: 15
   stopChasingAtDistance: 10
   minIdleDuration: 2
   maxIdleDuration: 4
   attactToList: 0000000002000000
-  showSwimArea: 1
-  showSightArea: 1
+  showSwimArea: 0
+  showSightArea: 0
