@@ -120,10 +120,15 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114778696054158768, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: positions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
         type: 2}
       propertyPath: m_Positions.Array.size
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4274108078006234, guid: 8409623c1fcbf4942b957e58c4b62d48, type: 2}
       propertyPath: m_LocalPosition.x
@@ -201,6 +206,86 @@ Prefab:
         type: 2}
       propertyPath: m_Positions.Array.data[4].z
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[5].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[5].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[5].z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[6].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[6].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[6].z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[7].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[7].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[7].z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[8].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[8].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[8].z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[9].x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[9].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_Positions.Array.data[9].z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 120394154905642356, guid: 8409623c1fcbf4942b957e58c4b62d48,
+        type: 2}
+      propertyPath: m_UseWorldSpace
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8409623c1fcbf4942b957e58c4b62d48, type: 2}
