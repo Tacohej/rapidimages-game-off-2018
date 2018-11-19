@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
 	public enum State
 	{
 		Setup,
-		Cast,
+		Cast_1,
+		Cast_2,
 		Reel,
 		Loot
 	}
 
-	public CastMeter castMeter;
+	public CastStats castStats;
 
 	[SerializeField] // will make it visible in the inspector without exposing it
 	private State currentState;
@@ -31,32 +32,46 @@ public class PlayerController : MonoBehaviour
 				// todo: handle move character
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					currentState = State.Cast;
-					castMeter.StartMeter();
+					currentState = State.Cast_1;
+					castStats.Reset();
 				}
 				break;
 			}
 
-			case State.Cast:
+			case State.Cast_1:
 			{
+				var speed = 1f;
+
+				var ntime = Time.time * speed % Mathf.PI;
+				var a = 100 - Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 35;
+
+				castStats.currentVelocity = a;
+				// castStats.currentGravity = a;
+				// var a = Mathf.Abs(Mathf.Sin(Time.time) * 3);
+				// print(a);
+				// castStats.currentVelocity = 10 + a * a * a * a;
+				castStats.currentGravity = -15 + Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 5;
+				// castStats.currentGravity = -10 - Mathf.Sin(Time.time * 5) * 5;
+				// print(castStats.currentGravity);
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					if (!castMeter.velocityIsSet)
-					{
-						castMeter.velocityIsSet = true;
-					} else if (!castMeter.accuracyIsSet)
-					{
-						castMeter.accuracyIsSet = true;
-						currentState = State.Reel;
-						break;
-					}
+					currentState = State.Cast_2;
+					// if (!castStats.velocityIsSet)
+					// {
+					// 	castStats.velocityIsSet = true;
+					// } else if (!castStats.accuracyIsSet)
+					// {
+					// 	castStats.accuracyIsSet = true;
+					// 	currentState = State.Reel;
+					// 	break;
 				}
-
-				castMeter.UpdateMeter(Time.deltaTime);
+				break;
+			}
+			case State.Cast_2:
+			{
 
 				break;
 			}
 		}
 	}
-
 }
