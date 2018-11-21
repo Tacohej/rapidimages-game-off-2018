@@ -15,7 +15,7 @@ MonoBehaviour:
   swimSpeed: 5
   chaseSpeed: 15
   swimAreaRadius: 25
-  sightRadius: 196.78
+  sightRadius: 134.87
   stopChasingAtDistance: 10
   minIdleDuration: 2
   maxIdleDuration: 4

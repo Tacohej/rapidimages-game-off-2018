@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 	void Start () {
 		currentState = State.Setup;
 		fishLine = GetComponent<LineRenderer>();
-		fishLine.positionCount = 32;
+		fishLine.positionCount = 2;
 	}
 
 	Vector3 JointsToPositions (HingeJoint joint) {
@@ -78,32 +78,15 @@ public class PlayerController : MonoBehaviour
 				castPreview.GetComponent<LineRenderer>().enabled = false;
 				var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
 				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 1f) {
-					if (currentPositionIndex >= castStats.positions.Length -1) {
+					if (currentPositionIndex >= castStats.positions.Length -1){
 						currentState = State.Splash;
-
-						// todo:move to another script
-						var hingeJoint = equppedBait.gameObject.AddComponent<HingeJoint>();
-						hingeJoint.connectedBody = fishLineJoints[fishLineJoints.Count -1].connectedBody;
-						fishLineJoints.Add(hingeJoint);
-
 					} else {
-
-						// todo:move to another script
-						var instance = Instantiate(fishLinePrefab, currentPosition, this.transform.rotation);
-						if (fishLineJoints.Count == 0) {
-							instance.connectedAnchor = this.transform.position;
-							fishLineJoints.Add(instance);
-						} else {
-							instance.connectedBody = fishLineJoints[fishLineJoints.Count -1].GetComponent<Rigidbody>();
-							fishLineJoints.Add(instance);
-						}
-
 						prevPosition = currentPosition;
 						currentPositionIndex++;
 					}
 				}
 
-				equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, currentPosition, Vector3.Distance(prevPosition, currentPosition) * 0.3f);
+				equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, currentPosition, Vector3.Distance(prevPosition, currentPosition) * 100 * Time.deltaTime);
 				break;
 			}
 			case State.Splash:
@@ -115,16 +98,18 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Reel:
 			{
-				// todo: fix this
-				// var positions = fishLineJoints.ConvertAll<Vector3>(JointsToPositions).ToArray();
-				// fishLine.SetPositions(positions);
-
+				
+				if (Input.GetKey(KeyCode.Space)){
+					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, this.transform.position, 50 * Time.deltaTime);
+				} else {
+					// sink
+					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0,-1000,0), 3 * Time.deltaTime);
+				}
 				break;
 			}
 		}
 
-			var positions = fishLineJoints.ConvertAll<Vector3>(JointsToPositions).ToArray();
-			fishLine.positionCount = positions.Length;
+			var positions = new Vector3[] {this.transform.position, equppedBait.transform.position};
 			fishLine.SetPositions(positions);
 	}
 }

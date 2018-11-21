@@ -156,6 +156,18 @@ Prefab:
       propertyPath: m_Name
       value: Fish (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
   m_IsPrefabAsset: 0
@@ -201,6 +213,18 @@ Prefab:
     - target: {fileID: 1413098339225964, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
       propertyPath: m_Name
       value: Fish (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
@@ -321,6 +345,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
   m_IsPrefabAsset: 0
@@ -383,7 +419,8 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9c5fec0fa07963d4c913613d497da5d5, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 54410088335001360, guid: 40faf667b78e8804ba21ebfe389d4580, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 40faf667b78e8804ba21ebfe389d4580, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1485685917
@@ -428,6 +465,18 @@ Prefab:
     - target: {fileID: 1413098339225964, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
       propertyPath: m_Name
       value: Fish (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4619802451430074, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 854c0e79c2e82bd49b77d537238e4b5d, type: 2}
