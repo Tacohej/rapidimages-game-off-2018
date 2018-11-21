@@ -16,7 +16,7 @@ public class PlayerLevel : MonoBehaviour
     List<string> unlockedRods = new List<string>();
     List<string> unlockableRods =  new List<string>(){"Common", "Uncommon", "Rare", "Epic", "Legendary"};
 
-    public void FishCaught()
+    public void FishCaught(FishStats fishStats)
     {
         fishesCaught += 1;
         

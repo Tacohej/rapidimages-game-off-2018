@@ -15,10 +15,11 @@ MonoBehaviour:
   swimSpeed: 5
   chaseSpeed: 15
   swimAreaRadius: 25
-  sightRadius: 15
+  sightRadius: 196.78
   stopChasingAtDistance: 10
   minIdleDuration: 2
   maxIdleDuration: 4
-  attactToList: 0000000002000000
-  showSwimArea: 0
-  showSightArea: 0
+  attactToList: 00000000
+  XP: 0
+  showSwimArea: 1
+  showSightArea: 1

@@ -108,6 +108,7 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Splash:
 			{
+				equppedBait.GetComponent<SphereCollider>().enabled = true;
 				// todo: do some damage or whatever
 				currentState = State.Reel;
 				break;

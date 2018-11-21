@@ -9,9 +9,9 @@ public class FishAI : MonoBehaviour
 	{
 		Idle,
 		Swim,
-		Chase
+		Chase,
+		Hooked
 	}
-
 	
 	public LayerMask layerMask;
 	public FishStats fishStats;
@@ -38,6 +38,7 @@ public class FishAI : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
+
 		switch(currentState)
 		{
 			case State.Idle: 
@@ -74,8 +75,7 @@ public class FishAI : MonoBehaviour
 			case State.Chase:
 			{
 				var dist = Vector3.Distance(this.transform.position, targetBait.transform.position);
-				// if (dist > fishStats.stopChasingAtDistance)
-				if (dist > fishStats.sightRadius * 2)
+				if (dist > fishStats.sightRadius * 2 || targetBait.GetComponent<Bait>().IsTaken())
 				{
 					targetBait = null;
 					ChangeState(State.Idle);
@@ -86,7 +86,18 @@ public class FishAI : MonoBehaviour
 				}
 				break;
 			}
+			case State.Hooked: 
+			{
+
+				break;
+			}
 		}
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		targetBait.GetComponent<Bait>().HookFish(gameObject);
+		rbody.isKinematic = true;
+		ChangeState(State.Hooked);
 	}
 
 	void OnDrawGizmos()
@@ -120,7 +131,7 @@ public class FishAI : MonoBehaviour
 		foreach(Collider col in hitColliders)
 		{
 			var bait = col.gameObject.GetComponent<Bait>();
-			if (bait && fishStats.attactToList.Contains(bait.type) )
+			if (bait && fishStats.attactToList.Contains(bait.type) && !bait.IsTaken())
 			{
 				return bait.gameObject;
 			}

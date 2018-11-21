@@ -25,6 +25,9 @@ public class FishStats : ScriptableObject
 	[Header("Set bait types")]
 	public List<Bait.Type> attactToList = new List<Bait.Type>();
 
+	[Header("Rewards")]
+	public int XP;
+
 	[Space]
 	[Header("Debugging")]
 	public bool showSwimArea = true;
