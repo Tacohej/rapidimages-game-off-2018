@@ -9,17 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21e0a1fb183bc9547b336d672a5e3d99, type: 3}
-  m_Name: New Fish Stats
+  m_Name: CommonFish
   m_EditorClassIdentifier: 
   fishName: Common Fish
   swimSpeed: 5
-  chaseSpeed: 15
+  chaseSpeed: 30
   swimAreaRadius: 25
-  sightRadius: 134.87
+  sightRadius: 74.81
   stopChasingAtDistance: 10
   minIdleDuration: 2
   maxIdleDuration: 4
   attactToList: 00000000
-  XP: 0
+  XP: 100
   showSwimArea: 1
   showSightArea: 1

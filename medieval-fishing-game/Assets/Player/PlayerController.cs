@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public CastStats castStats;
-	public Bait equppedBait;
-	public HingeJoint fishLinePrefab;
+	public RewardSystem rewardSystem;
 
+	public Bait equppedBait;
 	public GameObject castPreview;
 
 	[SerializeField]
@@ -27,12 +27,14 @@ public class PlayerController : MonoBehaviour
 
 	private List<HingeJoint> fishLineJoints = new List<HingeJoint>();
 	private LineRenderer fishLine;
+	private float catchDistance = 1;
 
 
 	void Start () {
 		currentState = State.Setup;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
+		rewardSystem.Reset();
 	}
 
 	Vector3 JointsToPositions (HingeJoint joint) {
@@ -41,7 +43,6 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
-
 		switch(currentState) {
 
 			case State.Setup:
@@ -56,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
 			case State.Aim:
 			{
+				castPreview.GetComponent<LineRenderer>().enabled = true;
 				// todo: calculations need some love
 				var speed = 1f;
 				var ntime = Time.time * speed % Mathf.PI;
@@ -98,12 +100,26 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Reel:
 			{
-				
+				// Reel in
 				if (Input.GetKey(KeyCode.Space)){
 					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, this.transform.position, 50 * Time.deltaTime);
 				} else {
-					// sink
+					// Quick and dirty sink mechanic
+					// todo: handle when over water surface
 					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0,-1000,0), 3 * Time.deltaTime);
+				}
+
+				// Catch fish
+				if (Vector3.Distance(this.transform.position, equppedBait.transform.position) < catchDistance) {
+					var fishObject = equppedBait.GetHookedFish();
+					if (fishObject) {
+						var fishStats = fishObject.GetComponent<FishAI>().fishStats;
+						var currentXP = fishStats.XP;
+						rewardSystem.FishCaught(currentXP);
+						Destroy(fishObject);
+					}
+					equppedBait.Reset();
+					this.currentState = State.Setup;
 				}
 				break;
 			}

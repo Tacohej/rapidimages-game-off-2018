@@ -425,6 +425,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   fishStats: {fileID: 11400000, guid: bb3d57c63426e7f4ebb3279949be13f8, type: 2}
+  currentState: 0
+  targetBait: {fileID: 0}
+  duration: 0
 --- !u!137 &137004269722921640
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

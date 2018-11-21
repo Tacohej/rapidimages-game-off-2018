@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0682c73d1073144965c089452960f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hookedFish: {fileID: 0}
+  isTaken: 0
   type: 0
 --- !u!135 &135751670689446192
 SphereCollider:

@@ -19,8 +19,16 @@ public class Bait : MonoBehaviour {
 
 	public Type type;
 
+	public GameObject GetHookedFish () {
+		return hookedFish;
+	}
+
 	public bool IsTaken () {
 		return isTaken;
+	}
+
+	public void Reset() {
+		this.isTaken = false;
 	}
 
 	public void HookFish(GameObject fish) {

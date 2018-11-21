@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 23318665642546196}
   - component: {fileID: 135118804688877804}
   - component: {fileID: 114889417763739888}
-  - component: {fileID: 54410088335001360}
   m_Layer: 0
   m_Name: Common Bait
   m_TagString: Untagged
@@ -193,21 +192,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1997014412548810}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54410088335001360
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1027262025341504}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &65375976013066344
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -232,9 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castStats: {fileID: 11400000, guid: c56c7f7b9f9312b4d8171d97fd36e7b0, type: 2}
+  rewardSystem: {fileID: 11400000, guid: b477e45eaf621524a97dc37b4a221b72, type: 2}
   equppedBait: {fileID: 114889417763739888}
-  fishLinePrefab: {fileID: 59009301233870700, guid: ebfe2d30e515e0d48a3d36c393cdd91d,
-    type: 2}
   castPreview: {fileID: 1085963519531126}
   currentState: 0
 --- !u!114 &114491570083459554
@@ -262,6 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0682c73d1073144965c089452960f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hookedFish: {fileID: 0}
+  isTaken: 0
   type: 0
 --- !u!120 &120145654743730138
 LineRenderer:
@@ -378,7 +363,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 9c5fec0fa07963d4c913613d497da5d5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -95,9 +95,11 @@ public class FishAI : MonoBehaviour
 	}
 
 	void OnCollisionEnter(Collision collision) {
-		targetBait.GetComponent<Bait>().HookFish(gameObject);
-		rbody.isKinematic = true;
-		ChangeState(State.Hooked);
+		if (targetBait){
+			targetBait.GetComponent<Bait>().HookFish(gameObject);
+			rbody.isKinematic = true;
+			ChangeState(State.Hooked);
+		}
 	}
 
 	void OnDrawGizmos()

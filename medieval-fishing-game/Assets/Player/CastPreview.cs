@@ -6,16 +6,13 @@ public class CastPreview : MonoBehaviour {
     public CastStats castStats;
     private LineRenderer lineRenderer;
     [SerializeField]
-    // private Vector3[] positions;
-
-    // public float initial_velocity = 20.0f;
-    // private float gravity = -5;
     public float starting_height = 1.0f;
     public float air_resistance = 2.0f;
     private const int segments = 32;
 
     void Start () {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         castStats.positions = new Vector3[segments];
         lineRenderer.positionCount = segments;
         lineRenderer.startWidth = 2.0f;
