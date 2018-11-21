@@ -6,17 +6,17 @@ public class CastPreview : MonoBehaviour {
     public CastStats castStats;
     private LineRenderer lineRenderer;
     [SerializeField]
-    private Vector3[] positions;
+    // private Vector3[] positions;
 
-    public float starting_height = 1.0f;
     // public float initial_velocity = 20.0f;
-    public float air_resistance = 2.0f;
     // private float gravity = -5;
+    public float starting_height = 1.0f;
+    public float air_resistance = 2.0f;
     private const int segments = 32;
 
     void Start () {
         lineRenderer = GetComponent<LineRenderer>();
-        positions = new Vector3[segments];
+        castStats.positions = new Vector3[segments];
         lineRenderer.positionCount = segments;
         lineRenderer.startWidth = 2.0f;
         lineRenderer.endWidth = 0.1f;
@@ -26,14 +26,14 @@ public class CastPreview : MonoBehaviour {
 
         float t = 0.0f;
         float impact_t = calculate_impact_time();
-        float step = impact_t / (positions.Length - 1);
-        for(int i=0; i < positions.Length; i++) {
+        float step = impact_t / (castStats.positions.Length - 1);
+        for(int i=0; i < castStats.positions.Length; i++) {
             t = i * step;
             var tt = t * t;
-            positions[i] = calculate_arc_position(t);
+            castStats.positions[i] = calculate_arc_position(t);
         }
 
-        lineRenderer.SetPositions(positions);
+        lineRenderer.SetPositions(castStats.positions);
     }
 
     private Vector3 calculate_arc_position(float t) {
@@ -41,7 +41,7 @@ public class CastPreview : MonoBehaviour {
         Vector3 v;
         v.x = castStats.currentVelocity * t - air_resistance * tt;
         v.y = starting_height + castStats.currentVelocity * t + castStats.currentGravity * tt;
-        v.z = 0;
+        v.z = castStats.currentAccuracy * tt;
         return v;
     }
 

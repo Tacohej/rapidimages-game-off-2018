@@ -35,6 +35,7 @@ public class PlayerLevel : MonoBehaviour
                 //print("UnlockedRods now contains: " + String.Join(", ", unlockedRods.ToArray()));
                 //print("UnlockableRods now contains: " + String.Join(", ", unlockableRods.ToArray()));            }
             
-        }   
+            }
+        }
     }
 }

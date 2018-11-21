@@ -7,71 +7,123 @@ public class PlayerController : MonoBehaviour
 	public enum State
 	{
 		Setup,
-		Cast_1,
-		Cast_2,
+		Aim,
+		Release,
+		Splash,
 		Reel,
-		Loot
+		Loot,
 	}
 
 	public CastStats castStats;
+	public Bait equppedBait;
+	public HingeJoint fishLinePrefab;
 
-	[SerializeField] // will make it visible in the inspector without exposing it
+	public GameObject castPreview;
+
+	[SerializeField]
 	private State currentState;
+	private int currentPositionIndex;
+	private Vector3 prevPosition;
+
+	private List<HingeJoint> fishLineJoints = new List<HingeJoint>();
+	private LineRenderer fishLine;
+
 
 	void Start () {
 		currentState = State.Setup;
+		fishLine = GetComponent<LineRenderer>();
+		fishLine.positionCount = 32;
+	}
+
+	Vector3 JointsToPositions (HingeJoint joint) {
+		return joint.transform.position;
 	}
 	
 	void Update ()
 	{
+
 		switch(currentState) {
 
 			case State.Setup:
 			{
-				// todo: handle equipping bait
-				// todo: handle move character
+				// todo: handle equipping bait & handle move character (in an arc)
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					currentState = State.Cast_1;
-					castStats.Reset();
+					currentState = State.Aim;
 				}
 				break;
 			}
 
-			case State.Cast_1:
+			case State.Aim:
 			{
+				// todo: calculations need some love
 				var speed = 1f;
-
 				var ntime = Time.time * speed % Mathf.PI;
-				var a = 100 - Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 35;
-
-				castStats.currentVelocity = a;
-				// castStats.currentGravity = a;
-				// var a = Mathf.Abs(Mathf.Sin(Time.time) * 3);
-				// print(a);
-				// castStats.currentVelocity = 10 + a * a * a * a;
+				var velocity = 120 - Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 35;
+				
+				castStats.currentVelocity = velocity;
 				castStats.currentGravity = -15 + Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 5;
-				// castStats.currentGravity = -10 - Mathf.Sin(Time.time * 5) * 5;
-				// print(castStats.currentGravity);
+				castStats.currentAccuracy = Mathf.Sin(Time.time * 3);
+
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					currentState = State.Cast_2;
-					// if (!castStats.velocityIsSet)
-					// {
-					// 	castStats.velocityIsSet = true;
-					// } else if (!castStats.accuracyIsSet)
-					// {
-					// 	castStats.accuracyIsSet = true;
-					// 	currentState = State.Reel;
-					// 	break;
+					currentState = State.Release;
+					currentPositionIndex = 0;
+					prevPosition = this.transform.position;
 				}
 				break;
 			}
-			case State.Cast_2:
+			case State.Release:
 			{
+				castPreview.GetComponent<LineRenderer>().enabled = false;
+				var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
+				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 1f) {
+					if (currentPositionIndex >= castStats.positions.Length -1) {
+						currentState = State.Splash;
+
+						// todo:move to another script
+						var hingeJoint = equppedBait.gameObject.AddComponent<HingeJoint>();
+						hingeJoint.connectedBody = fishLineJoints[fishLineJoints.Count -1].connectedBody;
+						fishLineJoints.Add(hingeJoint);
+
+					} else {
+
+						// todo:move to another script
+						var instance = Instantiate(fishLinePrefab, currentPosition, this.transform.rotation);
+						if (fishLineJoints.Count == 0) {
+							instance.connectedAnchor = this.transform.position;
+							fishLineJoints.Add(instance);
+						} else {
+							instance.connectedBody = fishLineJoints[fishLineJoints.Count -1].GetComponent<Rigidbody>();
+							fishLineJoints.Add(instance);
+						}
+
+						prevPosition = currentPosition;
+						currentPositionIndex++;
+					}
+				}
+
+				equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, currentPosition, Vector3.Distance(prevPosition, currentPosition) * 0.3f);
+				break;
+			}
+			case State.Splash:
+			{
+				// todo: do some damage or whatever
+				currentState = State.Reel;
+				break;
+			}
+			case State.Reel:
+			{
+				// todo: fix this
+				// var positions = fishLineJoints.ConvertAll<Vector3>(JointsToPositions).ToArray();
+				// fishLine.SetPositions(positions);
 
 				break;
 			}
 		}
+
+			var positions = fishLineJoints.ConvertAll<Vector3>(JointsToPositions).ToArray();
+			fishLine.positionCount = positions.Length;
+			fishLine.SetPositions(positions);
 	}
 }
