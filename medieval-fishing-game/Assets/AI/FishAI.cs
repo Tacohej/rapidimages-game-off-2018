@@ -74,6 +74,7 @@ public class FishAI : MonoBehaviour
 			}
 			case State.Chase:
 			{
+				// todo: stop chasing if the bait is no longer in water
 				var dist = Vector3.Distance(this.transform.position, targetBait.transform.position);
 				if (dist > fishStats.sightRadius * 2 || targetBait.GetComponent<Bait>().IsTaken())
 				{
@@ -88,13 +89,18 @@ public class FishAI : MonoBehaviour
 			}
 			case State.Hooked: 
 			{
-
+				// todo: struggle?
 				break;
 			}
 		}
 	}
 
 	void OnCollisionEnter(Collision collision) {
+
+		if (!collision.gameObject.GetComponent<Bait>()){
+			return;
+		}
+
 		if (targetBait){
 			targetBait.GetComponent<Bait>().HookFish(gameObject);
 			rbody.isKinematic = true;
