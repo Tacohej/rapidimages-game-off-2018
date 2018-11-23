@@ -29,11 +29,14 @@ public class PlayerController : MonoBehaviour
 	private LineRenderer fishLine;
 	private float catchDistance = 1;
 
+	private Shader baitCameraShader;
+
 
 	void Start () {
 		currentState = State.Setup;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
+		baitCameraShader = Shader.Find("BaitCameraShader");
 		rewardSystem.Reset();
 	}
 
