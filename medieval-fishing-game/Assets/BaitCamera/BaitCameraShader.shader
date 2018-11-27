@@ -44,11 +44,9 @@
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				float v1 = smoothstep(0, 0.5, _FadeValue);
-				float v2 = smoothstep(0.5, 1, _FadeValue);
 				fixed4 col = tex2D(_MainTex, i.uv);
-				fixed4 col2 = tex2D(BaitCameraTexture, i.uv - fixed2(0.15, 0));
-				float w = smoothstep(1 - v1 * 0.6, 1 - v2 *0.4, i.uv.x);
+				fixed4 col2 = tex2D(BaitCameraTexture, i.uv - fixed2(0.25, 0));
+				float w = smoothstep(1.4 - _FadeValue, 1.6 - _FadeValue, i.uv.x);
 				fixed4 finalColor = lerp(col, col2, w);
 				return finalColor;
 			}

@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
 		Loot,
 	}
 
+	public enum FadeDir {
+		In,
+		Out
+	}
+
 	public CastStats castStats;
 	public RewardSystem rewardSystem;
 
@@ -29,15 +34,22 @@ public class PlayerController : MonoBehaviour
 	private LineRenderer fishLine;
 	private float catchDistance = 1;
 
-	private Shader baitCameraShader;
-
+	public Material baitCameraMaterial;
+	private float fadeInValue;
+	private FadeDir fadeDirection;
 
 	void Start () {
 		currentState = State.Setup;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
-		baitCameraShader = Shader.Find("BaitCameraShader");
+		fadeInValue = 0;
 		rewardSystem.Reset();
+	}
+
+	void Fade (FadeDir dir, float speed = 3) {
+		var dirValue = dir == FadeDir.In ? Time.deltaTime : -Time.deltaTime;
+		fadeInValue = Mathf.Clamp01(fadeInValue + dirValue * speed);
+		baitCameraMaterial.SetFloat("_FadeValue", fadeInValue);
 	}
 
 	Vector3 JointsToPositions (HingeJoint joint) {
@@ -46,10 +58,12 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
 	{
+
 		switch(currentState) {
 
 			case State.Setup:
 			{
+				fadeDirection = FadeDir.Out;
 				// todo: handle equipping bait & handle move character (in an arc)
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
@@ -80,6 +94,7 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Release:
 			{
+				fadeDirection = FadeDir.In;
 				castPreview.GetComponent<LineRenderer>().enabled = false;
 				var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
 				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 1f) {
@@ -90,7 +105,6 @@ public class PlayerController : MonoBehaviour
 						currentPositionIndex++;
 					}
 				}
-
 				equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, currentPosition, Vector3.Distance(prevPosition, currentPosition) * 100 * Time.deltaTime);
 				break;
 			}
@@ -127,6 +141,8 @@ public class PlayerController : MonoBehaviour
 				break;
 			}
 		}
+
+			Fade(fadeDirection);
 
 			var positions = new Vector3[] {this.transform.position, equppedBait.transform.position};
 			fishLine.SetPositions(positions);
