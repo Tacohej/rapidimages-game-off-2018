@@ -28,8 +28,13 @@ public class FishStats : ScriptableObject
 	[Header("Rewards")]
 	public int XP;
 
+	[Header("Battle stats")]
+	public int stamina;
+	public int staminaRegen;
+
 	[Space]
 	[Header("Debugging")]
 	public bool showSwimArea = true;
 	public bool showSightArea = true;
+
 }

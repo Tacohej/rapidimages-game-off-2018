@@ -9,6 +9,7 @@ public class Bait : MonoBehaviour {
 	[SerializeField]
 	private bool isTaken = false;
 
+
 	public enum Type
 	{
 		common,
