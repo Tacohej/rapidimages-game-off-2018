@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Name: CommonFish
   m_EditorClassIdentifier: 
   fishName: Common Fish
-  swimSpeed: 5
-  chaseSpeed: 30
-  swimAreaRadius: 25
-  sightRadius: 74.81
+  swimSpeed: 10
+  chaseSpeed: 50
+  swimAreaRadius: 112.1
+  sightRadius: 50
   stopChasingAtDistance: 10
   minIdleDuration: 2
   maxIdleDuration: 4
   attactToList: 00000000
   XP: 100
+  stamina: 0
+  staminaRegen: 0
   showSwimArea: 1
   showSightArea: 1

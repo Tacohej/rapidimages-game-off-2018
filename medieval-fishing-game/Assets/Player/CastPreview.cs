@@ -38,7 +38,7 @@ public class CastPreview : MonoBehaviour {
         Vector3 v;
         v.x = castStats.currentVelocity * t - air_resistance * tt;
         v.y = starting_height + castStats.currentVelocity * t + castStats.currentGravity * tt;
-        v.z = castStats.currentAccuracy * tt;
+        v.z = 0;//castStats.currentAccuracy * tt;
         return v;
     }
 

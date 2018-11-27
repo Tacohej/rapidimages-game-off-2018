@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 	public Bait equppedBait;
 	public GameObject castPreview;
 
+    public float waterLevelY = 0;
+
 	[SerializeField]
 	private State currentState;
 	private int currentPositionIndex;
@@ -64,7 +66,8 @@ public class PlayerController : MonoBehaviour
 			case State.Setup:
 			{
 				fadeDirection = FadeDir.Out;
-				// todo: handle equipping bait & handle move character (in an arc)
+                    // todo: handle equipping bait & handle move character (in an arc)
+
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					currentState = State.Aim;
@@ -84,7 +87,14 @@ public class PlayerController : MonoBehaviour
 				castStats.currentGravity = -15 + Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 5;
 				castStats.currentAccuracy = Mathf.Sin(Time.time * 3);
 
-				if (Input.GetKeyDown(KeyCode.Space))
+                var horizontalInput = Input.GetAxis("Horizontal");
+
+                if (this.transform.rotation.y > -25 && this.transform.rotation.y < 25)
+                {
+                    this.transform.Rotate(this.transform.up, horizontalInput * Time.deltaTime * 40);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space))
 				{
 					currentState = State.Release;
 					currentPositionIndex = 0;
@@ -96,8 +106,11 @@ public class PlayerController : MonoBehaviour
 			{
 				fadeDirection = FadeDir.In;
 				castPreview.GetComponent<LineRenderer>().enabled = false;
-				var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
-				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 1f) {
+                var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
+
+                currentPosition = Quaternion.Euler(0, this.transform.rotation.y * Mathf.Rad2Deg, 0) * currentPosition;
+                    print(currentPosition);
+				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 0.1f) {
 					if (currentPositionIndex >= castStats.positions.Length -1){
 						currentState = State.Splash;
 					} else {
@@ -118,6 +131,11 @@ public class PlayerController : MonoBehaviour
 			case State.Reel:
 			{
 				// Reel in
+                if (equppedBait.transform.position.y > waterLevelY)
+                {
+                    equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0, -1000), 10 * Time.deltaTime);
+                }
+
 				if (Input.GetKey(KeyCode.Space)){
 					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, this.transform.position, 50 * Time.deltaTime);
 				} else {
