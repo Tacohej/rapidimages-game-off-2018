@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f831535e295b6148b06ede68892d799, type: 3}
   m_Name: New Bait Stats
   m_EditorClassIdentifier: 
-  stamina: 100
-  staminaRegen: 5
-  damage: 20
+  stamina: 10000
+  staminaRegen: 2
+  damage: 25

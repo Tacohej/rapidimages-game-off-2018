@@ -145,16 +145,19 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Battle:
 			{
-				if (Input.GetKeyDown(KeyCode.A)) {
-					battleSystem.DoAction(BattleSystem.PlayerAction.Attack);
-				}
 
-				if (Input.GetKeyDown(KeyCode.D)){
-					battleSystem.DoAction(BattleSystem.PlayerAction.Defend);
-				}
+				if (!battleSystem.IsPlayerActionOnCooldown()) {
+					if (Input.GetKeyDown(KeyCode.A)) {
+						battleSystem.DoAction(BattleSystem.PlayerAction.Slack);
+					}
 
-				if (Input.GetKey(KeyCode.Space)) {
-					battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+					if (Input.GetKeyDown(KeyCode.S)){
+						battleSystem.DoAction(BattleSystem.PlayerAction.Pull);
+					}
+
+					if (Input.GetKey(KeyCode.D)) {
+						battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+					}
 				}
 
 				var battleState = battleSystem.UpdateBattle(Time.time);

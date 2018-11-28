@@ -11,8 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c450b0f852a564394ee99ca7e1923f, type: 3}
   m_Name: New Battle System
   m_EditorClassIdentifier: 
-  fishStats: {fileID: 0}
-  baitStats: {fileID: 0}
-  playerStamina: 0
-  fishStamina: 0
-  fishState: 0
+  fishStats: {fileID: 11400000, guid: bb3d57c63426e7f4ebb3279949be13f8, type: 2}
+  baitStats: {fileID: 11400000, guid: 9c820cc4feb37db478838d6bd9b34b0d, type: 2}
+  maxPlayerStamina: 10000
+  maxFishStamina: 10000
+  playerStamina: 7532
+  fishStamina: -22
+  fishState: 2
+  playerState: 3
+  MAX_COOLDOWN: 3000
+  escapeTimer: 0
+  coolDownTime: 2571.5403
+  fleeAfterMilliSec: 10000
