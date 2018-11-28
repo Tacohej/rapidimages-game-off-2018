@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 		Splash,
 		Reel,
 		Loot,
+		Casting,
 		Battle
 	}
 
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
 		In,
 		Out
 	}
+
+	public Animator animator;
 
 	public CastStats castStats;
 	public RewardSystem rewardSystem;
@@ -60,6 +63,10 @@ public class PlayerController : MonoBehaviour
 	Vector3 JointsToPositions (HingeJoint joint) {
 		return joint.transform.position;
 	}
+
+	public void FinishCasting () {
+		currentState = State.Release;
+	}
 	
 	void Update ()
 	{
@@ -99,10 +106,16 @@ public class PlayerController : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					currentState = State.Release;
+					currentState = State.Casting;
 					currentPositionIndex = 0;
 					prevPosition = this.transform.position;
+					animator.SetTrigger("BeginCast");
 				}
+				break;
+			}
+			case State.Casting: 
+			{
+
 				break;
 			}
 			case State.Release:
@@ -197,6 +210,7 @@ public class PlayerController : MonoBehaviour
 						rewardSystem.FishCaught(currentXP);
 						Destroy(fishObject);
 					}
+					animator.SetTrigger("Reset");
 					equppedBait.Reset();
 					this.currentState = State.Setup;
 				}
