@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName="MedievalFishing/Baits/BaitStats")]
 public class BaitStats : ScriptableObject {
 
-    public int stamina;
-    public int staminaRegen;
+    public int stamina = 100;
+    public int staminaRegen = 5;
+    public int damage = 20;
 }

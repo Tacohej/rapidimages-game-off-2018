@@ -15,7 +15,7 @@ public class FishAI : MonoBehaviour
 	
 	public LayerMask layerMask;
 	public FishStats fishStats;
-    public float waterLevelY = 0;
+	public float waterLevelY = 0;
 
 	[Header("Read only variables")]
 	[SerializeField]
@@ -28,6 +28,8 @@ public class FishAI : MonoBehaviour
 	private Vector3 originalPosition;
 	private Vector3 targetPosition;
 	private Rigidbody rbody;
+
+	public bool defeted = false;
 	
 
 	void Start ()
@@ -37,25 +39,32 @@ public class FishAI : MonoBehaviour
 		duration = GetRandomDuration();
 	}
 	
+	public void SwimBack () {
+		this.transform.parent = null;
+		currentState = State.Swim;
+		targetPosition = originalPosition + new Vector3(10, 0, 0);
+		rbody.isKinematic = false;
+	}
+
 	void FixedUpdate ()
 	{
 
-        if (transform.position.y > waterLevelY && targetBait == null)
-        {
-            if (rbody.useGravity == false)
-            {
-                rbody.AddForce((Vector3.up + transform.rotation.eulerAngles).normalized * 2000); // todo: fix does not work
-                rbody.useGravity = true;
-                currentState = State.Idle;
-                rbody.drag = 0;
-            }
-            transform.rotation = Quaternion.LookRotation(rbody.velocity);
-            return;
-        } else
-        {
-            rbody.drag = 1;
-            rbody.useGravity = false;
-        }
+		if (transform.position.y > waterLevelY && targetBait == null)
+		{
+				if (rbody.useGravity == false)
+				{
+						rbody.AddForce((Vector3.up + transform.rotation.eulerAngles).normalized * 2000); // todo: fix does not work
+						rbody.useGravity = true;
+						currentState = State.Idle;
+						rbody.drag = 0;
+				}
+				transform.rotation = Quaternion.LookRotation(rbody.velocity);
+				return;
+		} else
+		{
+				rbody.drag = 1;
+				rbody.useGravity = false;
+		}
 
 		switch(currentState)
 		{

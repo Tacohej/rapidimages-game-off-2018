@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 		Splash,
 		Reel,
 		Loot,
+		Battle
 	}
 
 	public enum FadeDir {
@@ -21,11 +22,13 @@ public class PlayerController : MonoBehaviour
 
 	public CastStats castStats;
 	public RewardSystem rewardSystem;
+	public BattleSystem battleSystem;
 
 	public Bait equppedBait;
 	public GameObject castPreview;
+	public GameObject tip;
 
-    public float waterLevelY = 0;
+	public float waterLevelY = 0;
 
 	[SerializeField]
 	private State currentState;
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour
 			case State.Setup:
 			{
 				fadeDirection = FadeDir.Out;
-                    // todo: handle equipping bait & handle move character (in an arc)
+				// todo: handle equipping bait & handle move character (in an arc)
 
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
@@ -87,14 +90,14 @@ public class PlayerController : MonoBehaviour
 				castStats.currentGravity = -15 + Mathf.Abs(Mathf.Sin(ntime) + Mathf.PI / 2) * 5;
 				castStats.currentAccuracy = Mathf.Sin(Time.time * 3);
 
-                var horizontalInput = Input.GetAxis("Horizontal");
+				var horizontalInput = Input.GetAxis("Horizontal");
 
-                if (this.transform.rotation.y > -25 && this.transform.rotation.y < 25)
-                {
-                    this.transform.Rotate(this.transform.up, horizontalInput * Time.deltaTime * 40);
-                }
+				if (this.transform.rotation.y > -25 && this.transform.rotation.y < 25) // todo: fix
+				{
+						this.transform.Rotate(this.transform.up, horizontalInput * Time.deltaTime * 40);
+				}
 
-                if (Input.GetKeyDown(KeyCode.Space))
+				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					currentState = State.Release;
 					currentPositionIndex = 0;
@@ -106,10 +109,9 @@ public class PlayerController : MonoBehaviour
 			{
 				fadeDirection = FadeDir.In;
 				castPreview.GetComponent<LineRenderer>().enabled = false;
-                var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
+				var currentPosition = castStats.positions[currentPositionIndex] + this.transform.position;
 
-                currentPosition = Quaternion.Euler(0, this.transform.rotation.y * Mathf.Rad2Deg, 0) * currentPosition;
-                    print(currentPosition);
+				currentPosition = Quaternion.Euler(0, this.transform.rotation.y * Mathf.Rad2Deg, 0) * currentPosition;
 				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 0.1f) {
 					if (currentPositionIndex >= castStats.positions.Length -1){
 						currentState = State.Splash;
@@ -128,16 +130,58 @@ public class PlayerController : MonoBehaviour
 				currentState = State.Reel;
 				break;
 			}
+			case State.Battle:
+			{
+				if (Input.GetKeyDown(KeyCode.A)) {
+					battleSystem.DoAction(BattleSystem.PlayerAction.Attack);
+				}
+
+				if (Input.GetKeyDown(KeyCode.D)){
+					battleSystem.DoAction(BattleSystem.PlayerAction.Defend);
+				}
+
+				if (Input.GetKey(KeyCode.Space)) {
+					battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+				}
+
+				var battleState = battleSystem.UpdateBattle(Time.time);
+
+				if (battleState == BattleSystem.BattleState.GotFish) {
+					var fish = equppedBait.GetComponent<Bait>().GetHookedFish();
+					fish.GetComponent<FishAI>().defeted = true;
+					currentState = State.Reel;
+				}
+
+				if (battleState == BattleSystem.BattleState.LostFish) {
+					var fish = equppedBait.GetComponent<Bait>().GetHookedFish();
+					fish.GetComponent<FishAI>().SwimBack();
+					currentState = State.Reel;
+				}
+
+				if (battleState == BattleSystem.BattleState.LostBait) {
+					// todo: implement
+				}
+
+				break;
+			}
 			case State.Reel:
 			{
 				// Reel in
-                if (equppedBait.transform.position.y > waterLevelY)
-                {
-                    equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0, -1000), 10 * Time.deltaTime);
-                }
+				if (equppedBait.transform.position.y > waterLevelY)
+				{
+						equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0, -1000), 10 * Time.deltaTime);
+				}
+
+				var fish = equppedBait.GetComponent<Bait>().GetHookedFish();
+
+				if (fish && !fish.GetComponent<FishAI>().defeted) {
+					// todo enable ui
+					battleSystem.StartBattle(fish.GetComponent<FishAI>().fishStats, equppedBait.baitStats);
+					currentState = State.Battle;
+				}
 
 				if (Input.GetKey(KeyCode.Space)){
-					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, this.transform.position, 50 * Time.deltaTime);
+					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, tip.transform.position , 50 * Time.deltaTime);
 				} else {
 					// Quick and dirty sink mechanic
 					// todo: handle when over water surface
@@ -145,7 +189,7 @@ public class PlayerController : MonoBehaviour
 				}
 
 				// Catch fish
-				if (Vector3.Distance(this.transform.position, equppedBait.transform.position) < catchDistance) {
+				if (Vector3.Distance(tip.transform.position, equppedBait.transform.position) < catchDistance) {
 					var fishObject = equppedBait.GetHookedFish();
 					if (fishObject) {
 						var fishStats = fishObject.GetComponent<FishAI>().fishStats;
@@ -162,7 +206,7 @@ public class PlayerController : MonoBehaviour
 
 			Fade(fadeDirection);
 
-			var positions = new Vector3[] {this.transform.position, equppedBait.transform.position};
+			var positions = new Vector3[] {tip.transform.position, equppedBait.transform.position};
 			fishLine.SetPositions(positions);
 	}
 }

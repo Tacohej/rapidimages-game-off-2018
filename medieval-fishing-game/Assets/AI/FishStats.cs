@@ -29,8 +29,12 @@ public class FishStats : ScriptableObject
 	public int XP;
 
 	[Header("Battle stats")]
-	public int stamina;
-	public int staminaRegen;
+	public int stamina = 100;
+	public int staminaRegen = 1;
+	public int damage = 20;
+	public float fleeAfterMilliSec = 10000;
+	public float minMilliSecExhausted = 2000;
+	public float maxMilliSecExhausted = 5000;
 
 	[Space]
 	[Header("Debugging")]

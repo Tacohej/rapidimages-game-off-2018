@@ -21,7 +21,11 @@ MonoBehaviour:
   maxIdleDuration: 4
   attactToList: 00000000
   XP: 100
-  stamina: 0
-  staminaRegen: 0
+  stamina: 100
+  staminaRegen: 2
+  damage: 20
+  fleeAfterMilliSec: 10000
+  minMilliSecExhausted: 2000
+  maxMilliSecExhausted: 5000
   showSwimArea: 1
   showSightArea: 1
