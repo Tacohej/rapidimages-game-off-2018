@@ -22,8 +22,8 @@ MonoBehaviour:
   attactToList: 00000000
   XP: 100
   stamina: 10000
-  staminaRegen: 1
-  damage: 10
-  fleeAfterMilliSec: 10000
+  staminaRegen: 2
+  damage: 12
+  escapesAfterSeconds: 10
   showSwimArea: 1
   showSightArea: 1

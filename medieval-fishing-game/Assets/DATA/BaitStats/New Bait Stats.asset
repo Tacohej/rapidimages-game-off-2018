@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: New Bait Stats
   m_EditorClassIdentifier: 
   stamina: 10000
-  staminaRegen: 2
-  damage: 25
+  staminaRegen: 5
+  damage: 15

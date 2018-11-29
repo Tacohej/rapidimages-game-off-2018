@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: New Reward System
   m_EditorClassIdentifier: 
   currentLevel: 1
-  currentXP: 300
-  fishesCaught: 3
-  nextLevelUp: 500
+  currentXP: 0
+  fishesCaught: 0
+  nextLevelUp: 300
   nextLevelScaleFactor: 2
   unlockLevel: 0
   baseLevelUp: 300

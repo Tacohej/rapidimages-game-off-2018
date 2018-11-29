@@ -25,6 +25,10 @@ public class Bait : MonoBehaviour {
 		return hookedFish;
 	}
 
+	public void ReleaseHookedFish () {
+		hookedFish = null;
+	}
+
 	public bool IsTaken () {
 		return isTaken;
 	}

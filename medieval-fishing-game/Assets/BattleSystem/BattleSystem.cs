@@ -47,7 +47,7 @@ public class BattleSystem : ScriptableObject {
     public int fishStamina;
     public FishState fishState;
     public PlayerState playerState;
-    public float MAX_COOLDOWN = 3000;
+    public float MAX_COOLDOWN = 3;
     public float escapeTimer = 0;
 
     public float coolDownTime = 0;
@@ -65,7 +65,7 @@ public class BattleSystem : ScriptableObject {
         fishStamina = fishStats.stamina;
         maxPlayerStamina = playerStamina;
         maxFishStamina = fishStamina;
-        fleeAfterMilliSec = fishStats.fleeAfterMilliSec;
+        fleeAfterMilliSec = fishStats.escapesAfterSeconds;
 
         fishState = FishState.Struggling;
         playerState = PlayerState.Idle;
@@ -158,7 +158,7 @@ public class BattleSystem : ScriptableObject {
     }
 
     public void SetFishStateToEscaping () {
-        escapeTimer = fishStats.fleeAfterMilliSec;
+        escapeTimer = fishStats.escapesAfterSeconds;
         fishState = FishState.Escapes;
     }
 

@@ -5,9 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName="MedievalFishing/AI/FishStats")]
 public class FishStats : ScriptableObject
 {
+
 	[Space]
 	public string fishName;
 
+	[Header("Battle stats")]
+	public int stamina = 10000;
+	public int staminaRegen = 1;
+	public int damage = 20;
+	public float escapesAfterSeconds = 10;
+	
+	
+	[Space]
 	[Header("Swim speeds")]
 	public float swimSpeed = 0.5f;
 	public float chaseSpeed = 5;
@@ -27,12 +36,6 @@ public class FishStats : ScriptableObject
 
 	[Header("Rewards")]
 	public int XP;
-
-	[Header("Battle stats")]
-	public int stamina = 10000;
-	public int staminaRegen = 1;
-	public int damage = 20;
-	public float fleeAfterMilliSec = 10000;
 
 	[Space]
 	[Header("Debugging")]

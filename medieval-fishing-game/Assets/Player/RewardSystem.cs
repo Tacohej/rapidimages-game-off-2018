@@ -40,23 +40,24 @@ public class RewardSystem : ScriptableObject
         unlockLevel = RodUnlockLevel.Common;
     }
 
-    void LevelUp () {
-        Debug.Log("Level up");
+    void LevelUp (TextScroller log) {
         currentLevel ++;
+        log.AddScrollText("You Leveled up!");
+        log.AddScrollText("Currently Level: " + currentLevel);
         nextLevelUp *= nextLevelScaleFactor;
         if (unlockLevel != RodUnlockLevel.Legendary) {
             unlockLevel++;
         }
     }
 
-    public void FishCaught(int xpGain) // also add probability to gain item
+    public void FishCaught(int xpGain, TextScroller log) // also add probability to gain item
     {
         fishesCaught += 1;
         int nrLevelsGained = (currentXP + xpGain) / nextLevelUp;
         currentXP = (currentXP + xpGain) % nextLevelUp;
 
         if (nrLevelsGained > 0) {
-            LevelUp();
+            LevelUp(log);
             if (nrLevelsGained > 1) { Debug.LogWarning("OPS! Should not be able to level more than once"); }
         }
 

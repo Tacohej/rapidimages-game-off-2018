@@ -15,11 +15,11 @@ MonoBehaviour:
   baitStats: {fileID: 11400000, guid: 9c820cc4feb37db478838d6bd9b34b0d, type: 2}
   maxPlayerStamina: 10000
   maxFishStamina: 10000
-  playerStamina: 7532
-  fishStamina: -22
+  playerStamina: 10000
+  fishStamina: -11
   fishState: 2
   playerState: 3
-  MAX_COOLDOWN: 3000
+  MAX_COOLDOWN: 2
   escapeTimer: 0
-  coolDownTime: 2571.5403
-  fleeAfterMilliSec: 10000
+  coolDownTime: 0.02025113
+  fleeAfterMilliSec: 10
