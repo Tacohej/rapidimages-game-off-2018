@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
 	public Animator animator;
 
+	public TextScroller textScroller;
+
 	public CastStats castStats;
 	public RewardSystem rewardSystem;
 	public BattleSystem battleSystem;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
 	public Bait equppedBait;
 	public GameObject castPreview;
 	public GameObject tip;
+	public RectTransform battleMenu;
 
 	public float waterLevelY = 0;
 
@@ -46,12 +49,30 @@ public class PlayerController : MonoBehaviour
 	private float fadeInValue;
 	private FadeDir fadeDirection;
 
+	private bool tutorialMode = true;
+
 	void Start () {
 		currentState = State.Setup;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
 		fadeInValue = 0;
 		rewardSystem.Reset();
+
+
+
+		textScroller.AddScrollText("...");
+		textScroller.AddScrollText("!");
+		textScroller.AddScrollText("Well hello there!");
+		textScroller.AddScrollText("Press SPACE when ready.");
+
+	}
+
+	public float EaseOutBack(float start, float end, float value)
+	{
+			float s = 1.70158f;
+			end -= start;
+			value = (value) - 1;
+			return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
 	}
 
 	void Fade (FadeDir dir, float speed = 3) {
@@ -67,6 +88,10 @@ public class PlayerController : MonoBehaviour
 	public void FinishCasting () {
 		currentState = State.Release;
 	}
+
+	public void UpdateBaitPosition(){
+		equppedBait.transform.position = tip.transform.position;
+	}
 	
 	void Update ()
 	{
@@ -76,12 +101,16 @@ public class PlayerController : MonoBehaviour
 			case State.Setup:
 			{
 				fadeDirection = FadeDir.Out;
-				// todo: handle equipping bait & handle move character (in an arc)
 
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					currentState = State.Aim;
+					textScroller.AddScrollText("Look around with A and D...", true, true);
+					textScroller.AddScrollText("or use left and right arrow.");
+					textScroller.AddScrollText("Press Space again to cast.");
 				}
+
+				UpdateBaitPosition();
 				break;
 			}
 
@@ -106,16 +135,23 @@ public class PlayerController : MonoBehaviour
 
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
+					if (tutorialMode) {
+						textScroller.AddScrollText("Let's do this!", true, true);
+						textScroller.AddScrollText("Wieeeeee!");
+						textScroller.AddScrollText("");
+					}
+
 					currentState = State.Casting;
 					currentPositionIndex = 0;
 					prevPosition = this.transform.position;
 					animator.SetTrigger("BeginCast");
 				}
+				UpdateBaitPosition();
 				break;
 			}
 			case State.Casting: 
 			{
-
+				UpdateBaitPosition();
 				break;
 			}
 			case State.Release:
@@ -139,7 +175,10 @@ public class PlayerController : MonoBehaviour
 			case State.Splash:
 			{
 				equppedBait.GetComponent<SphereCollider>().enabled = true;
-				// todo: do some damage or whatever
+				if (tutorialMode) {
+					textScroller.AddScrollText("Wow...", true, true);
+					textScroller.AddScrollText("Now use space to reel in.");
+				}
 				currentState = State.Reel;
 				break;
 			}
@@ -215,7 +254,7 @@ public class PlayerController : MonoBehaviour
 					}
 					animator.SetTrigger("Reset");
 					equppedBait.Reset();
-					this.currentState = State.Setup;
+					this.currentState = State.Aim;
 				}
 				break;
 			}
@@ -223,7 +262,14 @@ public class PlayerController : MonoBehaviour
 
 			Fade(fadeDirection);
 
+			if (currentState == State.Battle) {
+				battleMenu.localPosition = Vector3.Lerp(battleMenu.localPosition, new Vector3(0,0,0), Time.deltaTime * 5);
+			} else {
+				battleMenu.localPosition = Vector3.Lerp(battleMenu.localPosition, new Vector3(0,500,0), Time.deltaTime * 5);
+			}
+
 			var positions = new Vector3[] {tip.transform.position, equppedBait.transform.position};
 			fishLine.SetPositions(positions);
 	}
+
 }

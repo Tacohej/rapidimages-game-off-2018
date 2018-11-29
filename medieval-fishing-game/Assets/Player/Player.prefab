@@ -1510,12 +1510,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95353845863066240}
+  textScroller: {fileID: 0}
   castStats: {fileID: 11400000, guid: c56c7f7b9f9312b4d8171d97fd36e7b0, type: 2}
   rewardSystem: {fileID: 11400000, guid: b477e45eaf621524a97dc37b4a221b72, type: 2}
   battleSystem: {fileID: 11400000, guid: f844dfe386c093545ac64110a987abe1, type: 2}
   equppedBait: {fileID: 114889417763739888}
   castPreview: {fileID: 1085963519531126}
   tip: {fileID: 1388935971499992}
+  battleMenu: {fileID: 0}
   waterLevelY: 0
   currentState: 0
   baitCameraMaterial: {fileID: 2100000, guid: 7923e8993efddcc4d8a1a0c51d8d8d06, type: 2}
@@ -1619,17 +1621,7 @@ LineRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
-  - {x: 5, y: 5, z: 5}
+  m_Positions: []
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1

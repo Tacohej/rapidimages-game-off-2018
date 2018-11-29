@@ -93,6 +93,8 @@ public class BattleSystem : ScriptableObject {
                 if (playerState == PlayerState.Pulling) {
                     fishStamina -= baitStats.damage * 20;
                     escapeTimer = 0;
+                    coolDownTime = 0;
+                    playerState = PlayerState.Idle;
                     SetFishStateToStruggleOrExhausted();
                     return BattleState.StillInBattle;
                 } else if (playerState == PlayerState.Reeling) {
@@ -183,5 +185,6 @@ public class BattleSystem : ScriptableObject {
         }
 
         coolDownTime = MAX_COOLDOWN;
+
     }
 }
