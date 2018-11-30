@@ -15,8 +15,8 @@ public class CastPreview : MonoBehaviour {
         lineRenderer.enabled = false;
         castStats.positions = new Vector3[segments];
         lineRenderer.positionCount = segments;
-        lineRenderer.startWidth = 2.0f;
-        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 0.5f;
     }
 
     void Update () {

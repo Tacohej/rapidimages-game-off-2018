@@ -6,13 +6,17 @@ using System;
 [CreateAssetMenu(menuName="MedievalFishing/Player/RewardSystem")]
 public class RewardSystem : ScriptableObject
 {
-    public enum RodUnlockLevel {
-        Common,
-        Uncommon,
-        Rare,
-        Epic,
-        Legendary
-    }
+    public Inventory inventory;
+
+    [Header("Baits")]
+    public BaitItem rewardLevel2;
+    public BaitItem rewardLevel4;
+    public BaitItem rewardLevel6;
+    
+    [Header("Baits")]
+    public RodItem rewardLevel3;
+    public RodItem rewardLevel5;
+    public RodItem rewardLevel7;
 
     [SerializeField]
     int currentLevel = 1;
@@ -25,11 +29,23 @@ public class RewardSystem : ScriptableObject
     [SerializeField]
     int nextLevelScaleFactor = 2;
     [SerializeField]
-    RodUnlockLevel unlockLevel = RodUnlockLevel.Common;
 
     [Header("Designers may modify these values")]
     public int baseLevelUp = 500;
     public int baseLevelScaleFactor = 2;
+
+    void OnEnable () {
+        inventory.onSelectedRodChanged += OnSelectedRodChanged;
+        inventory.onSelectedBaitChanged += OnSelectedBaitChanged;
+    }
+
+    void OnSelectedRodChanged (RodItem item) {
+       Debug.Log ("selected rod changed to: " + item.title);
+    }
+
+    void OnSelectedBaitChanged (BaitItem item) {
+       Debug.Log ("selected bait changed to: " + item.title);
+    }
 
     public void Reset() {
         currentLevel = 1;
@@ -37,16 +53,18 @@ public class RewardSystem : ScriptableObject
         fishesCaught = 0;
         nextLevelScaleFactor = baseLevelScaleFactor;
         nextLevelUp = baseLevelUp;
-        unlockLevel = RodUnlockLevel.Common;
     }
 
     void LevelUp (TextScroller log) {
         currentLevel ++;
         log.AddScrollText("You Leveled up!");
-        log.AddScrollText("Currently Level: " + currentLevel);
+        log.AddScrollText("Current Level: " + currentLevel);
         nextLevelUp *= nextLevelScaleFactor;
-        if (unlockLevel != RodUnlockLevel.Legendary) {
-            unlockLevel++;
+
+        if (currentLevel == 2) {
+            rewardLevel2.found = true;
+            log.AddScrollText("You unlocked " + rewardLevel2.title);
+            log.AddScrollText("It says: " + rewardLevel2.flavorText);
         }
     }
 

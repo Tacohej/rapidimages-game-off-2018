@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: Bait 1
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
   title: Bait 1
-  flavorText: 
+  flavorText: Yolololo
   diplayImage: {fileID: 21300000, guid: e0d1fb41ca74243b0a6dd0a8426e8969, type: 3}

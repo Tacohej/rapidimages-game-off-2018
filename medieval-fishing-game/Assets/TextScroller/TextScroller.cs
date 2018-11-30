@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextScroller : MonoBehaviour
 {
-    float TEXT_SPEED = 0.05f;
+    float TEXT_SPEED = 0.07f;
     Text textComponent;
     
     int stringIndex = 0;
@@ -32,7 +32,7 @@ public class TextScroller : MonoBehaviour
                 this.textToScrollQueue.RemoveAt(this.textToScrollQueue.Count - 1);
                 stringIndex = 0;
                 CancelInvoke("ScrollText");
-                InvokeRepeating("ScrollText", 0.8f, TEXT_SPEED);
+                InvokeRepeating("ScrollText", 1.2f, TEXT_SPEED);
             }
         }
         // If we have scrolled all messages in the queue, stop invoking 

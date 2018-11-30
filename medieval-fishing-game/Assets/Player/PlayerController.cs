@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
 	public enum State
 	{
+		Intro,
 		Setup,
 		Aim,
 		Release,
@@ -21,6 +23,8 @@ public class PlayerController : MonoBehaviour
 		Out
 	}
 
+	public Button[] buttons = new Button[3];
+
 	public Animator animator;
 
 	public TextScroller textScroller;
@@ -33,6 +37,9 @@ public class PlayerController : MonoBehaviour
 	public GameObject castPreview;
 	public GameObject tip;
 	public RectTransform battleMenu;
+	public RectTransform battleButtons;
+	public RectTransform leftInventoryPanel;
+	public RectTransform rightInventoryPanel;
 
 	public float waterLevelY = 0;
 
@@ -44,6 +51,7 @@ public class PlayerController : MonoBehaviour
 	private List<HingeJoint> fishLineJoints = new List<HingeJoint>();
 	private LineRenderer fishLine;
 	private float catchDistance = 1;
+	private Button lastButton;
 
 	public Material baitCameraMaterial;
 	private float fadeInValue;
@@ -52,27 +60,17 @@ public class PlayerController : MonoBehaviour
 	private bool tutorialMode = true;
 
 	void Start () {
-		currentState = State.Setup;
+		currentState = State.Intro;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
 		fadeInValue = 0;
 		rewardSystem.Reset();
 		fadeDirection = FadeDir.Out;
 
-
-
 		textScroller.AddScrollText("...");
 		textScroller.AddScrollText("!");
 		textScroller.AddScrollText("Well hello there!");
 		textScroller.AddScrollText("Press SPACE when ready.");
-	}
-
-	public float EaseOutBack(float start, float end, float value)
-	{
-			float s = 1.70158f;
-			end -= start;
-			value = (value) - 1;
-			return end * ((value) * value * ((s + 1) * value + s) + 1) + start;
 	}
 
 	void Fade (FadeDir dir, float speed = 3) {
@@ -92,21 +90,59 @@ public class PlayerController : MonoBehaviour
 	public void UpdateBaitPosition(){
 		equppedBait.transform.position = tip.transform.position;
 	}
+
+	public void DoSlackAction () {
+		if (currentState == State.Battle) {
+			battleSystem.DoAction(BattleSystem.PlayerAction.Slack);
+			lastButton = buttons[0];
+		} 
+	}
+	public void DoPullAction () {
+		if (currentState == State.Battle)
+		{
+			battleSystem.DoAction(BattleSystem.PlayerAction.Pull);
+			lastButton = buttons[1];
+		} 
+	}
+	public void DoReelAction () {
+		if (currentState == State.Battle) 
+		{
+			battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+			lastButton = buttons[2];
+		}
+	}
 	
 	void Update ()
 	{
 
 		switch(currentState) {
 
-			case State.Setup:
+			case State.Intro:
 			{
 
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
 					currentState = State.Aim;
-					textScroller.AddScrollText("Look around with A and D...", true, true);
-					textScroller.AddScrollText("or use left and right arrow.");
-					textScroller.AddScrollText("Press Space again to cast.");
+					textScroller.AddScrollText("Look around with A and D", true, true);
+					textScroller.AddScrollText("... or use left and right arrow.");
+					textScroller.AddScrollText("Press SPACE again to cast.");
+				}
+
+				UpdateBaitPosition();
+				break;
+			}
+			case State.Setup:
+			{
+				fadeDirection = FadeDir.Out;
+				if (tutorialMode) {
+					textScroller.AddScrollText("Now you may equip your new bait.");
+					textScroller.AddScrollText("How go get some more fish!");
+					textScroller.AddScrollText("Press SPACE when Ready.");
+					tutorialMode = false;
+				}
+
+				if (Input.GetKeyDown(KeyCode.Space)) {
+					currentState = State.Aim;
 				}
 
 				UpdateBaitPosition();
@@ -117,7 +153,6 @@ public class PlayerController : MonoBehaviour
 			{
 				fadeDirection = FadeDir.Out;
 				castPreview.GetComponent<LineRenderer>().enabled = true;
-
 
 				// todo: Could use rod stats here
 				var speed = 1f;
@@ -131,9 +166,8 @@ public class PlayerController : MonoBehaviour
 				var horizontalInput = Input.GetAxis("Horizontal");
 
 
-				if ((this.transform.rotation.y > -0.35f && horizontalInput < 0) || (this.transform.rotation.y < 0.35f && horizontalInput > 0)) // todo: fix
+				if ((this.transform.rotation.y > -0.35f && horizontalInput < 0) || (this.transform.rotation.y < 0.35f && horizontalInput > 0))
 				{
-						Debug.Log(this.transform.rotation.y);
 						this.transform.Rotate(this.transform.up, horizontalInput * Time.deltaTime * 40);
 				}
 
@@ -181,7 +215,7 @@ public class PlayerController : MonoBehaviour
 				equppedBait.GetComponent<SphereCollider>().enabled = true;
 				if (tutorialMode) {
 					textScroller.AddScrollText("Wow...", true, true);
-					textScroller.AddScrollText("Now use space to reel in.");
+					textScroller.AddScrollText("Now use SPACE to reel in.");
 				}
 				currentState = State.Reel;
 				break;
@@ -190,16 +224,17 @@ public class PlayerController : MonoBehaviour
 			{
 
 				if (!battleSystem.IsPlayerActionOnCooldown()) {
-					if (Input.GetKeyDown(KeyCode.A)) {
-						battleSystem.DoAction(BattleSystem.PlayerAction.Slack);
+					foreach (Button button in buttons) {
+						if (button != button.interactable) {
+							button.interactable = true;
+							if (button == lastButton) {
+								button.Select();
+							}
+						}
 					}
-
-					if (Input.GetKeyDown(KeyCode.S)){
-						battleSystem.DoAction(BattleSystem.PlayerAction.Pull);
-					}
-
-					if (Input.GetKey(KeyCode.D)) {
-						battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+				} else {
+					foreach (Button button in buttons) {
+						button.interactable = false;
 					}
 				}
 
@@ -215,32 +250,29 @@ public class PlayerController : MonoBehaviour
 					var fish = equppedBait.GetComponent<Bait>().GetHookedFish();
 					fish.GetComponent<FishAI>().SwimBack();
 					equppedBait.GetComponent<Bait>().ReleaseHookedFish();
-					equppedBait.GetComponent<Bait>().Reset();
 					currentState = State.Reel;
 				}
-
-				// if (battleState == BattleSystem.BattleState.LostBait) {
-				// 	// todo: implement maybe
-				// }
 
 				break;
 			}
 			case State.Reel:
 			{
-				// Reel in
-				// if (equppedBait.transform.position.y > waterLevelY)
-				// {
-				// 		equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0, -1000), 10 * Time.deltaTime);
-				// }
-
 				var fish = equppedBait.GetComponent<Bait>().GetHookedFish();
 
 				if (fish && !fish.GetComponent<FishAI>().defeted) {
-					battleSystem.StartBattle(fish.GetComponent<FishAI>().fishStats, equppedBait.baitStats);
+					battleSystem.StartBattle(fish.GetComponent<FishAI>().fishStats, equppedBait.baitStats, textScroller, tutorialMode);
 					currentState = State.Battle;
+					buttons[0].Select();
+					if (tutorialMode) {
+						textScroller.AddScrollText("You have one hooked!", true, true);
+						textScroller.AddScrollText("Use ACTIONS to tire it out.");
+						textScroller.AddScrollText("Some work better than others.");
+						textScroller.AddScrollText("The fish is struggling!");
+						textScroller.AddScrollText("Try Slack");
+					}
 				}
 
-				if (Input.GetKey(KeyCode.Space)){
+				if (Input.GetKey(KeyCode.Space) || equppedBait.GetComponent<Bait>().IsTaken()){
 					if (equppedBait.transform.position.y > waterLevelY && Mathf.Abs(equppedBait.transform.position.x - tip.transform.position.x) > 5f) {
 						var position = new Vector3(tip.transform.position.x, equppedBait.transform.position.y, tip.transform.position.z);
 						equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, position , 50 * Time.deltaTime);
@@ -248,34 +280,47 @@ public class PlayerController : MonoBehaviour
 						equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, tip.transform.position , 50 * Time.deltaTime);
 					}
 				} else {
-					// Quick and dirty sink mechanic
-					// todo: handle when over water surface
 					equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, new Vector3(0,-1000,0), 3 * Time.deltaTime);
 				}
 
 				// Catch fish
 				if (Vector3.Distance(tip.transform.position, equppedBait.transform.position) < catchDistance) {
 					var fishObject = equppedBait.GetHookedFish();
+					this.currentState = State.Setup;
 					if (fishObject) {
 						var fishStats = fishObject.GetComponent<FishAI>().fishStats;
 						var currentXP = fishStats.XP;
 						rewardSystem.FishCaught(currentXP, textScroller);
 						Destroy(fishObject);
+					} else if (tutorialMode) {
+						textScroller.AddScrollText("You will get one next Time");
+						this.currentState = State.Aim;
 					}
 					animator.SetTrigger("Reset");
 					equppedBait.Reset();
-					this.currentState = State.Aim;
 				}
 				break;
 			}
 		}
 
+			// dual camera effect
 			Fade(fadeDirection);
 
+			// Handle UI updates
 			if (currentState == State.Battle) {
 				battleMenu.localPosition = Vector3.Lerp(battleMenu.localPosition, new Vector3(0,0,0), Time.deltaTime * 5);
+				battleButtons.localPosition = Vector3.Lerp(battleButtons.localPosition, new Vector3(0,0,0), Time.deltaTime * 7);
 			} else {
+				battleButtons.localPosition = Vector3.Lerp(battleButtons.localPosition, new Vector3(0,-100,0), Time.deltaTime * 7);
 				battleMenu.localPosition = Vector3.Lerp(battleMenu.localPosition, new Vector3(0,500,0), Time.deltaTime * 5);
+			}
+
+			if (currentState == State.Setup) {
+				leftInventoryPanel.localPosition = Vector3.Lerp(leftInventoryPanel.localPosition, new Vector3(0,0,0), Time.deltaTime * 5);
+				rightInventoryPanel.localPosition = Vector3.Lerp(rightInventoryPanel.localPosition, new Vector3(0,0,0), Time.deltaTime * 5);
+			} else {
+				leftInventoryPanel.localPosition = Vector3.Lerp(leftInventoryPanel.localPosition, new Vector3(-300,0,0), Time.deltaTime * 5);
+				rightInventoryPanel.localPosition = Vector3.Lerp(rightInventoryPanel.localPosition, new Vector3(300,0,0), Time.deltaTime * 5);
 			}
 
 			var positions = new Vector3[] {tip.transform.position, equppedBait.transform.position};

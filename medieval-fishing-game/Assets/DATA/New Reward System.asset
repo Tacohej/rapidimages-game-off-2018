@@ -11,11 +11,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6a72834630ef74e83fb5447835da99, type: 3}
   m_Name: New Reward System
   m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
+  rewardLevel2: {fileID: 11400000, guid: fd92654808adf47e4889d56490a9e3c1, type: 2}
+  rewardLevel4: {fileID: 0}
+  rewardLevel6: {fileID: 0}
+  rewardLevel3: {fileID: 0}
+  rewardLevel5: {fileID: 0}
+  rewardLevel7: {fileID: 0}
   currentLevel: 1
   currentXP: 0
   fishesCaught: 0
-  nextLevelUp: 300
+  nextLevelUp: 100
   nextLevelScaleFactor: 2
-  unlockLevel: 0
-  baseLevelUp: 300
+  baseLevelUp: 100
   baseLevelScaleFactor: 2

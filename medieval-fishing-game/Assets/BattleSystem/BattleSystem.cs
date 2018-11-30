@@ -53,12 +53,17 @@ public class BattleSystem : ScriptableObject {
     public float coolDownTime = 0;
     public float fleeAfterMilliSec = 0;
 
+    private TextScroller textScroller;
+    private bool tutorialMode;
+
     public bool IsPlayerActionOnCooldown () {
         return coolDownTime > 0;
     }
 
-	public void StartBattle (FishStats fishStats, BaitStats baitStats)
+	public void StartBattle (FishStats fishStats, BaitStats baitStats, TextScroller textScroller, bool tutorialMode)
     {
+        this.textScroller = textScroller;
+        this.tutorialMode = tutorialMode;
         this.fishStats = fishStats;
         this.baitStats = baitStats;
         playerStamina = baitStats.stamina;
@@ -102,6 +107,10 @@ public class BattleSystem : ScriptableObject {
                 }
 
                 if (escapeTimer <= 0) {
+                    textScroller.AddScrollText("It got away!", true, true);
+                    if (tutorialMode) {
+                        textScroller.AddScrollText("Remember to PULL next time.");
+                    }
                     return BattleState.LostFish;
                 }
 
@@ -124,7 +133,6 @@ public class BattleSystem : ScriptableObject {
                     fishStamina -= baitStats.damage;
                 } else if (playerState == PlayerState.Slacking)
                 {
-                    // playerStamina += baitStats.staminaRegen;
                     playerStamina = Mathf.Min(playerStamina + baitStats.staminaRegen, baitStats.stamina);
                 } else {
                     playerStamina -= fishStats.staminaRegen;
@@ -134,10 +142,16 @@ public class BattleSystem : ScriptableObject {
         }
 
         if (playerStamina <= 0) {
+            if (tutorialMode) {
+                textScroller.AddScrollText("You will get the next one!", true, true);
+            }
             return BattleState.LostFish;
         }
 
         if (fishStamina <= 0) {
+            if (tutorialMode) {
+                textScroller.AddScrollText("You caught it!", true, true);
+            }
             return BattleState.GotFish;
         }
 
@@ -160,6 +174,10 @@ public class BattleSystem : ScriptableObject {
     public void SetFishStateToEscaping () {
         escapeTimer = fishStats.escapesAfterSeconds;
         fishState = FishState.Escapes;
+        if (tutorialMode) {
+            textScroller.AddScrollText("Uh oh! The fish is trying to escape.", true, true);
+            textScroller.AddScrollText("Use PULL");
+        }
     }
 
     public void DoAction (PlayerAction action)
@@ -169,21 +187,50 @@ public class BattleSystem : ScriptableObject {
             case PlayerAction.Slack:
             {
                 playerState = PlayerState.Slacking;
+                if (tutorialMode) {
+                    if (fishState == FishState.Struggling) {
+                        textScroller.AddScrollText("Nice! Regain some stamina.", true, true);
+                    } else if (fishState == FishState.Exhausted) {
+                        textScroller.AddScrollText("Hmmm, fish is now regaining stamina.", true, true);
+                    } else if (fishState == FishState.Escapes) {
+                        textScroller.AddScrollText("No time! PULL to interupt!", true, true);
+                    }
+                }
                 break;
             }
             case PlayerAction.Pull:
             {
                 playerState = PlayerState.Pulling;
+                if (tutorialMode) {
+                    if (fishState == FishState.Struggling) {
+                        textScroller.AddScrollText("It's not very effective...", true, true);
+                    } else if (fishState == FishState.Escapes) {
+                        textScroller.AddScrollText("Good! Interupted!", true, true);
+                    } else if (fishState == FishState.Exhausted) {
+                        textScroller.AddScrollText("It's not very effective...", true, true);
+                    }
+                }
                 break;
             }
             case PlayerAction.Reel:
             {
                 playerState = PlayerState.Reeling;
+                if (tutorialMode) {
+                    if (fishState == FishState.Struggling) {
+                        textScroller.AddScrollText("Risky move!", true, true);
+                    } else if (fishState == FishState.Escapes) {
+                        textScroller.AddScrollText("No time! PULL to interupt!", true, true);
+                    } else if (fishState == FishState.Exhausted) {
+                        textScroller.AddScrollText("Excellent choice!", true, true);
+                    }
+                }
                 break;
             }
   
         }
-
+        if (tutorialMode) {
+            textScroller.AddScrollText("Pick a new ACTION.");
+        }
         coolDownTime = MAX_COOLDOWN;
 
     }

@@ -9,6 +9,8 @@ public class Inventory : ScriptableObject {
 	public UnityAction<RodItem> onSelectedRodChanged;
 	public UnityAction<BaitItem> onSelectedBaitChanged;
 
+	public bool test;
+
 	[NonSerialized] private RodItem m_SelectedRod;
 	[NonSerialized] private BaitItem m_SelectedBait;
 
