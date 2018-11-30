@@ -20,17 +20,18 @@ public class CastPreview : MonoBehaviour {
     }
 
     void Update () {
+        if (lineRenderer.enabled) {
+            float t = 0.0f;
+            float impact_t = calculate_impact_time();
+            float step = impact_t / (castStats.positions.Length - 1);
+            for(int i=0; i < castStats.positions.Length; i++) {
+                t = i * step;
+                // var tt = t * t;
+                castStats.positions[i] = calculate_arc_position(t);
+            }
 
-        float t = 0.0f;
-        float impact_t = calculate_impact_time();
-        float step = impact_t / (castStats.positions.Length - 1);
-        for(int i=0; i < castStats.positions.Length; i++) {
-            t = i * step;
-            var tt = t * t;
-            castStats.positions[i] = calculate_arc_position(t);
+            lineRenderer.SetPositions(castStats.positions);
         }
-
-        lineRenderer.SetPositions(castStats.positions);
     }
 
     private Vector3 calculate_arc_position(float t) {

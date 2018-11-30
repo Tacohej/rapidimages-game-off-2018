@@ -5,9 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName="MedievalFishing/Player/CastMeter")]
 public class CastStats : ScriptableObject
 {
-	public float currentVelocity;
-	public float currentAccuracy;
-	public float currentGravity;
-
+	[System.NonSerialized]
+	public float currentVelocity = 0;
+	[System.NonSerialized]
+	public float currentAccuracy = 0;
+	[System.NonSerialized]
+	public float currentGravity = 0;
+	[System.NonSerialized]
 	public Vector3[] positions;
 }

@@ -24,39 +24,41 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public Button[] buttons = new Button[3];
-
+	public GameObject grip;
+	// public List<GameObject> rods = new List<GameObject>();
+	// public List<GameObject> baits = new List<GameObject>();
+	
 	public Animator animator;
-
-	public TextScroller textScroller;
+	public GameObject castPreview;
 
 	public CastStats castStats;
+	public Inventory inventory;
 	public RewardSystem rewardSystem;
 	public BattleSystem battleSystem;
+	public Material baitCameraMaterial;
 
 	public Bait equppedBait;
-	public GameObject castPreview;
-	public GameObject tip;
+	public RodItem StartingRod;
+
+	private GameObject currentRod;
+	private GameObject tip;
+	
+	public TextScroller textScroller;
 	public RectTransform battleMenu;
 	public RectTransform battleButtons;
 	public RectTransform leftInventoryPanel;
 	public RectTransform rightInventoryPanel;
 
-	public float waterLevelY = 0;
-
 	[SerializeField]
 	private State currentState;
-	private int currentPositionIndex;
-	private Vector3 prevPosition;
-
-	private List<HingeJoint> fishLineJoints = new List<HingeJoint>();
 	private LineRenderer fishLine;
-	private float catchDistance = 1;
+	private Vector3 prevPosition;
 	private Button lastButton;
-
-	public Material baitCameraMaterial;
-	private float fadeInValue;
 	private FadeDir fadeDirection;
-
+	private float waterLevelY = 0;
+	private float catchDistance = 1;
+	private float fadeInValue;
+	private int currentPositionIndex;
 	private bool tutorialMode = true;
 
 	private SoundManager soundManager;
@@ -77,23 +79,39 @@ public class PlayerController : MonoBehaviour
 		rewardSystem.Reset();
 		fadeDirection = FadeDir.Out;
 
+		inventory.SelectedRod = StartingRod;
+
 		textScroller.AddScrollText("...");
 		textScroller.AddScrollText("!");
 		textScroller.AddScrollText("Well hello there!");
 		textScroller.AddScrollText("Press SPACE when ready.");
 	}
 
-	void Fade (FadeDir dir, float speed = 3) {
-		var dirValue = dir == FadeDir.In ? Time.deltaTime : -Time.deltaTime;
-		fadeInValue = Mathf.Clamp01(fadeInValue + dirValue * speed);
-		baitCameraMaterial.SetFloat("_FadeValue", fadeInValue);
+	void OnEnable () {
+		inventory.onSelectedRodChanged += OnSelectedRodChanged;
+		inventory.onSelectedBaitChanged += OnSelectedBaitChanged;
 	}
 
-	Vector3 JointsToPositions (HingeJoint joint) {
-		return joint.transform.position;
+	void EnableRod (string title) {
+		var selected = grip.transform.Find(title);
+		selected.gameObject.SetActive(true);
+		if (currentRod) {
+			currentRod.SetActive(false);
+			currentRod = selected.gameObject;
+		}
+		tip = selected.Find("Tip").gameObject;
 	}
 
-	public void FinishCasting () {
+	void OnSelectedRodChanged (RodItem item) {
+			textScroller.AddScrollText("Selected Rod: " + item.title, true, true);
+			EnableRod(item.title);
+	}
+
+	void OnSelectedBaitChanged (BaitItem item) {
+			// Debug.Log ("selected bait changed to: " + item.title, true, true);
+	}
+
+	public void FinishCasting() {
 		currentState = State.Release;
 	}
 
@@ -123,6 +141,16 @@ public class PlayerController : MonoBehaviour
 			soundManager.PlayClipFile("Sound/MenuSounds/MenuSelect");
 			lastButton = buttons[2];
 		}
+	}
+
+	void Fade (FadeDir dir, float speed = 3) {
+		var dirValue = dir == FadeDir.In ? Time.deltaTime : -Time.deltaTime;
+		fadeInValue = Mathf.Clamp01(fadeInValue + dirValue * speed);
+		baitCameraMaterial.SetFloat("_FadeValue", fadeInValue);
+	}
+
+	Vector3 JointsToPositions (HingeJoint joint) {
+		return joint.transform.position;
 	}
 	
 	void Update ()

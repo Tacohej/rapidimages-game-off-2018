@@ -20,53 +20,53 @@ public class RewardSystem : ScriptableObject
 
     [SerializeField]
     int currentLevel = 1;
-    [SerializeField]
+    
     int currentXP = 0;
-    [SerializeField]
     int fishesCaught = 0;
-    [SerializeField]
-    int nextLevelUp = 500;
-    [SerializeField]
-    int nextLevelScaleFactor = 2;
-    [SerializeField]
+    int nextLevelUp;
+    int levelIncreaseAmount;
 
     [Header("Designers may modify these values")]
-    public int baseLevelUp = 500;
-    public int baseLevelScaleFactor = 2;
-
-    void OnEnable () {
-        inventory.onSelectedRodChanged += OnSelectedRodChanged;
-        inventory.onSelectedBaitChanged += OnSelectedBaitChanged;
-    }
-
-    void OnSelectedRodChanged (RodItem item) {
-       Debug.Log ("selected rod changed to: " + item.title);
-    }
-
-    void OnSelectedBaitChanged (BaitItem item) {
-       Debug.Log ("selected bait changed to: " + item.title);
-    }
+    public int baseLevelUp = 100;
+    public int baseLevelScaleFactor = 300;
 
     public void Reset() {
         currentLevel = 1;
         currentXP = 0;
         fishesCaught = 0;
-        nextLevelScaleFactor = baseLevelScaleFactor;
+        levelIncreaseAmount = baseLevelScaleFactor;
         nextLevelUp = baseLevelUp;
     }
 
-    void LevelUp (TextScroller log) {
+    public void LevelUp (TextScroller log) {
         currentLevel ++;
         log.AddScrollText("You Leveled up!");
         log.AddScrollText("Current Level: " + currentLevel);
-        nextLevelUp *= nextLevelScaleFactor;
+        nextLevelUp *= levelIncreaseAmount;
 
-        if (currentLevel == 2) {
-            rewardLevel2.found = true;
-            log.AddScrollText("You unlocked " + rewardLevel2.title);
-            log.AddScrollText("It says: " + rewardLevel2.flavorText);
+        switch(currentLevel) {
+            case 2: { UnlockBait(rewardLevel2, log); break; }
+            case 3: { UnlockRod (rewardLevel3, log); break; }
+            case 4: { UnlockBait(rewardLevel4, log); break; }
+            case 5: { UnlockRod (rewardLevel5, log); break; }
+            case 6: { UnlockBait(rewardLevel6, log); break; }
+            case 7: { UnlockRod (rewardLevel7, log); break; }
         }
+
     }
+
+    public void UnlockRod (RodItem rodItem, TextScroller log) {
+        log.AddScrollText("You unlocked " + rodItem.title);
+        log.AddScrollText("It says: " + rodItem.flavorText);
+        rodItem.found = true;
+    }
+
+    public void UnlockBait (BaitItem baitItem, TextScroller log) {
+        log.AddScrollText("You unlocked " + baitItem.title);
+        log.AddScrollText("It says: " + baitItem.flavorText);
+        baitItem.found = true;
+    }
+
 
     public void FishCaught(int xpGain, TextScroller log) // also add probability to gain item
     {

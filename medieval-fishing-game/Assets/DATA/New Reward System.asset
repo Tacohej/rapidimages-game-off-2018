@@ -18,10 +18,5 @@ MonoBehaviour:
   rewardLevel3: {fileID: 0}
   rewardLevel5: {fileID: 0}
   rewardLevel7: {fileID: 0}
-  currentLevel: 1
-  currentXP: 0
-  fishesCaught: 0
-  nextLevelUp: 100
-  nextLevelScaleFactor: 2
   baseLevelUp: 100
-  baseLevelScaleFactor: 2
+  baseLevelScaleFactor: 300
