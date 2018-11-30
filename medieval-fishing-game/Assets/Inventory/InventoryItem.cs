@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public abstract class InventoryItem : ScriptableObject {
 	public string title;
+	public string boon;
 	public string flavorText;
 	public Sprite diplayImage;
 	[NonSerialized] public bool found;

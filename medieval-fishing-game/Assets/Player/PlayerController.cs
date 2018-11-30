@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
 	public RewardSystem rewardSystem;
 	public BattleSystem battleSystem;
 	public Material baitCameraMaterial;
+	public Camera baitCamera;
 
 	public Bait equippedBait;
 	public Rod equippedRod;
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
 
 	void OnSelectedBaitChanged (BaitItem item) {
 		textScroller.AddScrollText("TODO: Add info here", true, true);
+		EquipBait(item);
 	}
 
 	public void FinishCasting() {
@@ -365,6 +367,13 @@ public class PlayerController : MonoBehaviour
 				break;
 			}
 		}
+			// TODO
+			// Update Camera
+			// var baitCameraPos = baitCamera.transform.position;
+			// baitCameraPos.x = equippedBait.transform.position.x;
+			// baitCameraPos.z = equippedBait.transform.position.z;
+			// baitCamera.transform.position = baitCameraPos;
+			baitCamera.transform.parent = equippedBait.transform;
 
 			// dual camera effect
 			Fade(fadeDirection);

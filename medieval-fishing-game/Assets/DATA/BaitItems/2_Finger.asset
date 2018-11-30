@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 1_PlaceholderBait
+  m_Name: 2_Finger
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: Placeholder Bait - common
-  boon: Mechanic
-  flavorText: '''Insert dumb joke'''
+  title: Finger - Uncommon
+  boon: Attracts Torch Fish
+  flavorText: '''Just a normal human finger'
   diplayImage: {fileID: 0}

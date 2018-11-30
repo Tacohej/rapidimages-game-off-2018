@@ -9,9 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 1_PlaceholderBait
-  m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: Placeholder Bait - common
-  boon: Mechanic
-  flavorText: '''Insert dumb joke'''
+  m_Name: 4_Hot rod
+  m_EditorClassIdentifier: Assembly-CSharp::RodItem
+  title: Hot Rod
+  boon: High Stamina and Damage. No regen.
+  flavorText: '''Less impressive than Fire rod. But still'
   diplayImage: {fileID: 0}
+  stamina: 20000
+  staminaRegen: 0
+  damage: 60

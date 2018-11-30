@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 222738710754266570}
   - component: {fileID: 114837737241728884}
   m_Layer: 5
-  m_Name: IceRod
+  m_Name: Rod2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 222813052418779090}
   - component: {fileID: 114939943407630542}
   m_Layer: 5
-  m_Name: ElectricRod
+  m_Name: Rod3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1210265770306354
 GameObject:
   m_ObjectHideFlags: 1
@@ -560,12 +560,12 @@ GameObject:
   - component: {fileID: 222346730732074634}
   - component: {fileID: 114745821345660036}
   m_Layer: 5
-  m_Name: AnotherRod
+  m_Name: Rod5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1564765202832658
 GameObject:
   m_ObjectHideFlags: 1
@@ -629,7 +629,7 @@ GameObject:
   - component: {fileID: 222055763113079220}
   - component: {fileID: 114014039764008326}
   m_Layer: 5
-  m_Name: HotRod
+  m_Name: Rod1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -817,7 +817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224441199031003260}
   m_Layer: 5
-  m_Name: Left
+  m_Name: LeftInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -940,7 +940,7 @@ GameObject:
   - component: {fileID: 222473505393163094}
   - component: {fileID: 114436197306540992}
   m_Layer: 5
-  m_Name: TelescopeRod
+  m_Name: Rod4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,7 +973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224006635420656178}
   m_Layer: 5
-  m_Name: Right
+  m_Name: RightInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: ffc1ffcbd03ff4bc09955e67787119af, type: 2}
+  item: {fileID: 11400000, guid: 80623a6d084205646a8cd51816c10edf, type: 2}
 --- !u!114 &114014625693867768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1245,7 +1245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: 9b64b6b5891384259ac9f8586f58cbf6, type: 2}
+  item: {fileID: 11400000, guid: 21042944208f57a489a433d3b1721fe9, type: 2}
 --- !u!114 &114045419077480428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1928,7 +1928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: fd92654808adf47e4889d56490a9e3c1, type: 2}
+  item: {fileID: 11400000, guid: c2e470a98b730c94ea100cb42a0e2d93, type: 2}
 --- !u!114 &114320978084580910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2242,7 +2242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: a78f6764f918445cc81d4137cd8b6a1a, type: 2}
+  item: {fileID: 11400000, guid: e9901138db51c3643ac99f5f99967f83, type: 2}
 --- !u!114 &114437153437344404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2558,7 +2558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: e1a9958df9e194e7f914e1f3bb503d99, type: 2}
+  item: {fileID: 11400000, guid: e5000539d997c0f44a603f35874425a3, type: 2}
 --- !u!114 &114547207868913578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2938,7 +2938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  bait: {fileID: 11400000, guid: b67cfd18ec9b74fcfaf05a3a55e470ce, type: 2}
+  bait: {fileID: 11400000, guid: fd92654808adf47e4889d56490a9e3c1, type: 2}
 --- !u!114 &114737440038219622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2951,7 +2951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: b67cfd18ec9b74fcfaf05a3a55e470ce, type: 2}
+  item: {fileID: 11400000, guid: 340f53f5bc5c5ba439c937c98ac20e04, type: 2}
 --- !u!114 &114745821345660036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3102,7 +3102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: 83deb57e5cf3e49b7a5c28bf3c268415, type: 2}
+  item: {fileID: 11400000, guid: 35a1b29cd7e8ad84bb77099bc117068a, type: 2}
 --- !u!114 &114837965920777686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3391,7 +3391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  item: {fileID: 11400000, guid: eaf8ee8bf549a4d92ab68b699b5170b4, type: 2}
+  item: {fileID: 11400000, guid: 0a6a8b1b63fb86a4ba7a7e6cf15256c0, type: 2}
 --- !u!114 &114981661337863740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3925,7 +3925,7 @@ RectTransform:
   m_Children:
   - {fileID: 224171865050615750}
   m_Father: {fileID: 224334667204000340}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3944,7 +3944,7 @@ RectTransform:
   m_Children:
   - {fileID: 224282496316749462}
   m_Father: {fileID: 224334667204000340}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.3}
   m_AnchorMax: {x: 0.5, y: 0.3}
@@ -4445,9 +4445,9 @@ RectTransform:
   - {fileID: 224412799068613910}
   - {fileID: 224325117855473702}
   - {fileID: 224320967753274480}
+  - {fileID: 224007428338885628}
   - {fileID: 224006635420656178}
   - {fileID: 224441199031003260}
-  - {fileID: 224007428338885628}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4640,7 +4640,7 @@ RectTransform:
   m_Children:
   - {fileID: 224044986322447220}
   m_Father: {fileID: 224334667204000340}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

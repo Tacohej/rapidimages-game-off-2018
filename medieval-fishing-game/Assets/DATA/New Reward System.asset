@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Name: New Reward System
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: fde87e465bac64cd188a48498c687d31, type: 2}
-  rewardLevel2: {fileID: 11400000, guid: fd92654808adf47e4889d56490a9e3c1, type: 2}
-  rewardLevel4: {fileID: 0}
-  rewardLevel6: {fileID: 0}
-  rewardLevel3: {fileID: 0}
-  rewardLevel5: {fileID: 0}
-  rewardLevel7: {fileID: 0}
+  rewardLevel2: {fileID: 11400000, guid: 340f53f5bc5c5ba439c937c98ac20e04, type: 2}
+  rewardLevel4: {fileID: 11400000, guid: 21042944208f57a489a433d3b1721fe9, type: 2}
+  rewardLevel6: {fileID: 11400000, guid: e5000539d997c0f44a603f35874425a3, type: 2}
+  rewardLevel3: {fileID: 11400000, guid: 35a1b29cd7e8ad84bb77099bc117068a, type: 2}
+  rewardLevel5: {fileID: 11400000, guid: 0a6a8b1b63fb86a4ba7a7e6cf15256c0, type: 2}
+  rewardLevel7: {fileID: 11400000, guid: e9901138db51c3643ac99f5f99967f83, type: 2}
+  currentLevel: 2
   baseLevelUp: 100
   baseLevelScaleFactor: 300

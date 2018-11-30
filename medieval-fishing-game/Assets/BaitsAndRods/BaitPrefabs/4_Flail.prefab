@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135751670689446192}
   - component: {fileID: 114683949577954390}
   m_Layer: 0
-  m_Name: 3_Sword
+  m_Name: 4_Flail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0682c73d1073144965c089452960f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baitItem: {fileID: 0}
-  type: 0
+  baitItem: {fileID: 11400000, guid: e5000539d997c0f44a603f35874425a3, type: 2}
+  type: 3
 --- !u!135 &135751670689446192
 SphereCollider:
   m_ObjectHideFlags: 1

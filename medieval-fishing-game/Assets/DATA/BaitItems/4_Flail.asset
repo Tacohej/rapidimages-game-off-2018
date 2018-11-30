@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: 1_PlaceholderBait
+  m_Name: 4_Flail
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: Placeholder Bait - common
-  boon: Mechanic
-  flavorText: '''Insert dumb joke'''
+  title: Flail - Epic
+  boon: Attracts all fishes
+  flavorText: '''Uncommonly used "lure" among fisher knight.'''
   diplayImage: {fileID: 0}
