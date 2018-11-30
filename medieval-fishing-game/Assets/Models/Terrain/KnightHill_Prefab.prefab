@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8776708432326480030
+--- !u!1 &7942707235566751526
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8776708432326480003}
-  - component: {fileID: 8776708432326480028}
-  - component: {fileID: 8776708432326480029}
+  - component: {fileID: 7942707235566751525}
+  - component: {fileID: 7942707235566751524}
+  - component: {fileID: 7942707235566751527}
   m_Layer: 0
-  m_Name: KnightHill
+  m_Name: KnightHill_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &8776708432326480003
+--- !u!4 &7942707235566751525
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776708432326480030}
+  m_GameObject: {fileID: 7942707235566751526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -880.2, y: 0, z: 33.4}
+  m_LocalPosition: {x: -914, y: 0, z: -76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!218 &8776708432326480028
+--- !u!218 &7942707235566751524
 Terrain:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776708432326480030}
+  m_GameObject: {fileID: 7942707235566751526}
   m_Enabled: 1
   serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 6eaa886cb009aed4583463f0f081dd2a, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 3001fb5b1db82ec4eae6b81e08647f40, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -68,14 +68,14 @@ Terrain:
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_AllowAutoConnect: 1
---- !u!154 &8776708432326480029
+--- !u!154 &7942707235566751527
 TerrainCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8776708432326480030}
+  m_GameObject: {fileID: 7942707235566751526}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 6eaa886cb009aed4583463f0f081dd2a, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 3001fb5b1db82ec4eae6b81e08647f40, type: 2}
   m_EnableTreeColliders: 1
