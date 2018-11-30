@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextScroller : MonoBehaviour
 {
-    float TEXT_SPEED = 0.07f;
+    float TEXT_SPEED = 0.04f;
     Text textComponent;
     
     int stringIndex = 0;
