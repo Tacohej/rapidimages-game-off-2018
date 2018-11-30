@@ -209,9 +209,7 @@ public class PlayerController : MonoBehaviour
 
 			case State.Aim:
 			{
-				if (soundManager.currentMusic != SoundData.FISHING_MUSIC){
-					soundManager.PlayMusicFile(SoundData.FISHING_MUSIC);
-				}
+				
 				fadeDirection = FadeDir.Out;
 				castPreview.GetComponent<LineRenderer>().enabled = true;
 
@@ -326,6 +324,10 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Reel:
 			{
+				if (soundManager.currentMusic != SoundData.FISHING_MUSIC){
+					soundManager.PlayMusicFile(SoundData.FISHING_MUSIC);
+				}
+				
 				var fish = equippedBait.GetComponent<Bait>().GetHookedFish();
 
 				if (fish && !fish.GetComponent<FishAI>().defeted) {
