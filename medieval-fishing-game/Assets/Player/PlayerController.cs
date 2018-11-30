@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour
 		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 	}
 
+	GameObject waterSplash;
+
 	void Start () {
+		waterSplash = Resources.Load<GameObject>("Particles/WaterSplash");
 		soundManager.PlayMusicFile(SoundData.FISHING_MUSIC);
 		currentState = State.Intro;
 		fishLine = GetComponent<LineRenderer>();
@@ -214,7 +217,12 @@ public class PlayerController : MonoBehaviour
 				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 0.1f) {
 					if (currentPositionIndex >= castStats.positions.Length -1){
 						soundManager.PlayClipFile(SoundData.WATER_SPLASH);
+						// SÄTT UT SKITEN HÄR
+						Vector3 particlePos = new Vector3(equppedBait.transform.position.x, 0, equppedBait.transform.position.z);
+						GameObject particle = Instantiate(waterSplash, particlePos, Quaternion.AngleAxis(-90, Vector3.right));
+						particle.GetComponent<ParticleSystem>().Play();
 						currentState = State.Splash;
+						Destroy(particle, 0.5f);
 					} else {
 						prevPosition = currentPosition;
 						currentPositionIndex++;
@@ -291,6 +299,7 @@ public class PlayerController : MonoBehaviour
 
 				if (Input.GetKey(KeyCode.Space) || equppedBait.GetComponent<Bait>().IsTaken()){
 					if (equppedBait.transform.position.y > waterLevelY && Mathf.Abs(equppedBait.transform.position.x - tip.transform.position.x) > 5f) {
+					//	fish.transform
 						var position = new Vector3(tip.transform.position.x, equppedBait.transform.position.y, tip.transform.position.z);
 						equppedBait.transform.position = Vector3.MoveTowards(equppedBait.transform.position, position , 50 * Time.deltaTime);
 					} else {
