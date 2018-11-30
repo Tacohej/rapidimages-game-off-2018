@@ -59,7 +59,14 @@ public class PlayerController : MonoBehaviour
 
 	private bool tutorialMode = true;
 
+	private SoundManager soundManager;
+	
+	void Awake() {
+		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+	}
+
 	void Start () {
+		soundManager.PlayMusicFile(SoundData.FISHING_MUSIC);
 		currentState = State.Intro;
 		fishLine = GetComponent<LineRenderer>();
 		fishLine.positionCount = 2;
@@ -94,6 +101,7 @@ public class PlayerController : MonoBehaviour
 	public void DoSlackAction () {
 		if (currentState == State.Battle) {
 			battleSystem.DoAction(BattleSystem.PlayerAction.Slack);
+			soundManager.PlayClipFile("Sound/MenuSounds/MenuSelect");
 			lastButton = buttons[0];
 		} 
 	}
@@ -101,6 +109,7 @@ public class PlayerController : MonoBehaviour
 		if (currentState == State.Battle)
 		{
 			battleSystem.DoAction(BattleSystem.PlayerAction.Pull);
+			soundManager.PlayClipFile("Sound/MenuSounds/MenuSelect");
 			lastButton = buttons[1];
 		} 
 	}
@@ -108,6 +117,7 @@ public class PlayerController : MonoBehaviour
 		if (currentState == State.Battle) 
 		{
 			battleSystem.DoAction(BattleSystem.PlayerAction.Reel);
+			soundManager.PlayClipFile("Sound/MenuSounds/MenuSelect");
 			lastButton = buttons[2];
 		}
 	}
@@ -132,7 +142,7 @@ public class PlayerController : MonoBehaviour
 				break;
 			}
 			case State.Setup:
-			{
+			{			
 				fadeDirection = FadeDir.Out;
 				if (tutorialMode) {
 					textScroller.AddScrollText("Now you may equip your new bait.");
@@ -151,6 +161,9 @@ public class PlayerController : MonoBehaviour
 
 			case State.Aim:
 			{
+				if (soundManager.currentMusic != SoundData.FISHING_MUSIC){
+					soundManager.PlayMusicFile(SoundData.FISHING_MUSIC);
+				}
 				fadeDirection = FadeDir.Out;
 				castPreview.GetComponent<LineRenderer>().enabled = true;
 
@@ -178,7 +191,6 @@ public class PlayerController : MonoBehaviour
 						textScroller.AddScrollText("Wieeeeee!");
 						textScroller.AddScrollText("");
 					}
-
 					currentState = State.Casting;
 					currentPositionIndex = 0;
 					prevPosition = this.transform.position;
@@ -201,6 +213,7 @@ public class PlayerController : MonoBehaviour
 				currentPosition = Quaternion.Euler(0, this.transform.rotation.y * Mathf.Rad2Deg, 0) * currentPosition;
 				if (Vector3.Distance(equppedBait.transform.position, currentPosition) < 0.1f) {
 					if (currentPositionIndex >= castStats.positions.Length -1){
+						soundManager.PlayClipFile(SoundData.WATER_SPLASH);
 						currentState = State.Splash;
 					} else {
 						prevPosition = currentPosition;
@@ -222,6 +235,10 @@ public class PlayerController : MonoBehaviour
 			}
 			case State.Battle:
 			{
+
+				if (soundManager.currentMusic != SoundData.BATTLE_MUSIC){
+					soundManager.PlayMusicFile(SoundData.BATTLE_MUSIC);
+				}
 
 				if (!battleSystem.IsPlayerActionOnCooldown()) {
 					foreach (Button button in buttons) {

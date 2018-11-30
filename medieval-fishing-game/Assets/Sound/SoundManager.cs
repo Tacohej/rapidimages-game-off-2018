@@ -7,8 +7,10 @@ public class SoundManager : MonoBehaviour
     private AudioSource MusicSource;
     private AudioSource ClipSource;
 
+    public string currentMusic;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameObject musicSourceObject = new GameObject("MusicSource");
         musicSourceObject.transform.parent = transform;
@@ -22,6 +24,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusicFile(string musicPath)// bool repeating = false) Cant have multiple arguments if you want to use from a UI button :(
     {
+        this.currentMusic = musicPath;
         MusicSource.Stop();
         MusicSource.clip = Resources.Load<AudioClip>(musicPath);
         //MusicSource.loop = repeating;
