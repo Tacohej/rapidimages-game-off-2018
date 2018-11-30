@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3231db2d3a9435e4a82cdac1d2bcaa5c, type: 3}
   m_Name: 2_Finger
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: 
-  boon: 
-  flavorText: 
-  diplayImage: {fileID: 0}
+  title: Human finger
+  boon: Will attract Torch Fish
+  flavorText: '''Just a normal human finger.'''
+  diplayImage: {fileID: 21300000, guid: c4f9fb7cc14ff5d42a5a304f0ce5e115, type: 3}

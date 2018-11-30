@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27ab79676bbece4e8b2982fd8d2ac28, type: 3}
   m_Name: 4_Hot rod
   m_EditorClassIdentifier: Assembly-CSharp::RodItem
-  title: 4
-  boon: 
-  flavorText: 
-  diplayImage: {fileID: 0}
-  stamina: 10000
+  title: Hot Rod
+  boon: Alot of stamina and damage. No regen.
+  flavorText: '''Less impressive than the Fire Rod. But still.'''
+  diplayImage: {fileID: 21300000, guid: 07e34596d00996f49a0719ac41f490d3, type: 3}
+  stamina: 25000
   staminaRegen: 5
-  damage: 20
+  damage: 60

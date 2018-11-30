@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3231db2d3a9435e4a82cdac1d2bcaa5c, type: 3}
   m_Name: 3_Sword
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: 
-  boon: 
-  flavorText: 
-  diplayImage: {fileID: 0}
+  title: Sword
+  boon: Will attract Torch Fish and Swordfish
+  flavorText: '''Commonly used "lure" among fisher knights.'''
+  diplayImage: {fileID: 21300000, guid: faa8c1b1239f6064ba3f25ab54928738, type: 3}

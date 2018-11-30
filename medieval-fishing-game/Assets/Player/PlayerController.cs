@@ -119,12 +119,16 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void OnSelectedRodChanged (RodItem item) {
-		textScroller.AddScrollText("TODO: Add info here" + item.title, true, true);
+		textScroller.AddScrollText("Item: " + item.title, true, true);
+		textScroller.AddScrollText("+" + item.boon);
+		textScroller.AddScrollText("" + item.flavorText);
 		EquipRod(item);
 	}
 
 	void OnSelectedBaitChanged (BaitItem item) {
-		textScroller.AddScrollText("TODO: Add info here", true, true);
+		textScroller.AddScrollText("Item: " + item.title, true, true);
+		textScroller.AddScrollText("+" + item.boon);
+		textScroller.AddScrollText("" + item.flavorText);
 		EquipBait(item);
 	}
 
@@ -236,6 +240,8 @@ public class PlayerController : MonoBehaviour
 						textScroller.AddScrollText("Let's do this!", true, true);
 						textScroller.AddScrollText("Wieeeeee!");
 						textScroller.AddScrollText("");
+					} else {
+						textScroller.AddScrollText("Here we go again");
 					}
 					currentState = State.Casting;
 					currentPositionIndex = 0;
@@ -334,8 +340,8 @@ public class PlayerController : MonoBehaviour
 					battleSystem.StartBattle(fish.GetComponent<FishAI>().fishStats, equippedRod.rodItem, textScroller, tutorialMode);
 					currentState = State.Battle;
 					buttons[0].Select();
+					textScroller.AddScrollText("You have one hooked!", true, true);
 					if (tutorialMode) {
-						textScroller.AddScrollText("You have one hooked!", true, true);
 						textScroller.AddScrollText("Use ACTIONS to tire it out.");
 						textScroller.AddScrollText("Some work better than others.");
 						textScroller.AddScrollText("The fish is struggling!");
@@ -366,6 +372,8 @@ public class PlayerController : MonoBehaviour
 					} else if (tutorialMode) {
 						textScroller.AddScrollText("You will get one next Time");
 						this.currentState = State.Aim;
+					} else {
+						textScroller.AddScrollText("It broke free");
 					}
 					animator.SetTrigger("Reset");
 					equippedBait.Reset();

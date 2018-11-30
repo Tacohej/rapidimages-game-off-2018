@@ -57,13 +57,13 @@ public class RewardSystem : ScriptableObject
 
     public void UnlockRod (RodItem rodItem, TextScroller log) {
         log.AddScrollText("You unlocked " + rodItem.title);
-        log.AddScrollText("It says: " + rodItem.flavorText);
+        log.AddScrollText("- " + rodItem.boon);
         rodItem.found = true;
     }
 
     public void UnlockBait (BaitItem baitItem, TextScroller log) {
         log.AddScrollText("You unlocked " + baitItem.title);
-        log.AddScrollText("It says: " + baitItem.flavorText);
+        log.AddScrollText("- " + baitItem.boon);
         baitItem.found = true;
     }
 

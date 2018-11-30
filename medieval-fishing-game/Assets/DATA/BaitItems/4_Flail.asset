@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3231db2d3a9435e4a82cdac1d2bcaa5c, type: 3}
   m_Name: 4_Flail
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: 
-  boon: 
-  flavorText: 
-  diplayImage: {fileID: 0}
+  title: Flail
+  boon: Will attract Torch Fish, Swordfish and Dragonfish
+  flavorText: '''Unommonly used "lure" among fisher knights.'''
+  diplayImage: {fileID: 21300000, guid: d54eb6f9c5f302e479db0c2c0199b939, type: 3}

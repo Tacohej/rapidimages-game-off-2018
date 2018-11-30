@@ -160,6 +160,14 @@ public class BattleSystem : ScriptableObject {
 
     public void SetFishStateToStruggleOrExhausted () {
         fishState = Random.Range(0, 2) > 0 ? FishState.Struggling: FishState.Exhausted;
+        if (!tutorialMode) {
+            if (fishState == FishState.Struggling) {
+                textScroller.AddScrollText("The fish is struggling", true, true);
+            } else {
+                textScroller.AddScrollText("The fish is exhausted", true, true);
+            }
+
+        }
     }
 
     public void SetFishStateToRandom () {
@@ -177,6 +185,8 @@ public class BattleSystem : ScriptableObject {
         if (tutorialMode) {
             textScroller.AddScrollText("Uh oh! The fish is trying to escape.", true, true);
             textScroller.AddScrollText("Use PULL");
+        } else {
+            textScroller.AddScrollText("Fish is trying to escape", true, true);
         }
     }
 
