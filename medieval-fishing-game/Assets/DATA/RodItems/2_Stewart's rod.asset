@@ -8,13 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a27ab79676bbece4e8b2982fd8d2ac28, type: 3}
   m_Name: 2_Stewart's rod
   m_EditorClassIdentifier: Assembly-CSharp::RodItem
-  title: Stewart's Rod - Uncommon
-  boon: Less stamina. More Damage
-  flavorText: '''Can make it rain on a sunny day'''
+  title: 2
+  boon: 
+  flavorText: 
   diplayImage: {fileID: 0}
-  stamina: 6000
+  stamina: 10000
   staminaRegen: 5
-  damage: 40
+  damage: 20

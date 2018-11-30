@@ -8,10 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 3231db2d3a9435e4a82cdac1d2bcaa5c, type: 3}
   m_Name: 4_Flail
   m_EditorClassIdentifier: Assembly-CSharp::BaitItem
-  title: Flail - Epic
-  boon: Attracts all fishes
-  flavorText: '''Uncommonly used "lure" among fisher knight.'''
+  title: 
+  boon: 
+  flavorText: 
   diplayImage: {fileID: 0}

@@ -23,6 +23,9 @@ public class PlayerController : MonoBehaviour
 		Out
 	}
 
+	public List<Bait> _baits = new List<Bait>();
+	public List<Rod> _rods = new List<Rod>();
+
 	public Button[] buttons = new Button[3];
 	public GameObject grip;
 	public GameObject baitHolder;
@@ -76,6 +79,9 @@ public class PlayerController : MonoBehaviour
 		rewardSystem.Reset();
 		fadeDirection = FadeDir.Out;
 
+		equippedRod.rodItem.found = true;
+		equippedBait.baitItem.found = true;
+
 		inventory.SelectedRod = equippedRod.rodItem;
 		inventory.SelectedBait = equippedBait.baitItem;
 
@@ -91,9 +97,8 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void EquipRod (RodItem rodItem) {
-		var rods = grip.GetComponentsInChildren<Rod>();
-
-		foreach (Rod rod in rods) {
+		// var rods = grip.GetComponentsInChildren<Rod>();
+		foreach (Rod rod in _rods) {
 			var active = rodItem == rod.rodItem;
 			rod.gameObject.SetActive(active);
 			if (active) {
@@ -103,9 +108,8 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void EquipBait (BaitItem baitItem) {
-		var baits = baitHolder.GetComponentsInChildren<Bait>();
-
-		foreach (Bait bait in baits) {
+		// var baits = baitHolder.GetComponentsInChildren<Bait>();
+		foreach (Bait bait in _baits) {
 			var active = baitItem == bait.baitItem;
 			bait.gameObject.SetActive(active);
 			if (active) {

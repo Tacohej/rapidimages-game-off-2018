@@ -8,14 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a27ab79676bbece4e8b2982fd8d2ac28, type: 3}
   m_Name: 3_Telescope rod
   m_EditorClassIdentifier: Assembly-CSharp::RodItem
-  title: Telescope Rod - Rare
-  boon: Better than stick
-  flavorText: '''Telescopic fishing rods are designed to collapse down to a short
-    length and open to a long rod. This one just has a telescope attached though.'''
+  title: 3
+  boon: 
+  flavorText: 
   diplayImage: {fileID: 0}
-  stamina: 12000
-  staminaRegen: 8
-  damage: 30
+  stamina: 10000
+  staminaRegen: 5
+  damage: 20
