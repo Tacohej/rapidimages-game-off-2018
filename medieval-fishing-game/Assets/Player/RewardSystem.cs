@@ -42,7 +42,7 @@ public class RewardSystem : ScriptableObject
         currentLevel ++;
         log.AddScrollText("You Leveled up!");
         log.AddScrollText("Current Level: " + currentLevel);
-        nextLevelUp *= levelIncreaseAmount;
+        nextLevelUp += levelIncreaseAmount;
 
         switch(currentLevel) {
             case 2: { UnlockBait(rewardLevel2, log); break; }
@@ -77,6 +77,10 @@ public class RewardSystem : ScriptableObject
         if (nrLevelsGained > 0) {
             LevelUp(log);
             if (nrLevelsGained > 1) { Debug.LogWarning("OPS! Should not be able to level more than once"); }
+        }
+
+        if (currentLevel > 9) {
+            log.AddScrollText("You won the game. Keep playing if you want.");
         }
 
     }

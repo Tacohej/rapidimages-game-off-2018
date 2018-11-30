@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
 	private bool tutorialMode = true;
 
 	private SoundManager soundManager;
+
+	private bool spamFilter = true;
 	
 	void Awake() {
 		soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -198,12 +200,15 @@ public class PlayerController : MonoBehaviour
 				fadeDirection = FadeDir.Out;
 				if (tutorialMode) {
 					textScroller.AddScrollText("Now you may equip your new bait.");
-					textScroller.AddScrollText("How go get some more fish!");
-					textScroller.AddScrollText("Press SPACE when Ready.");
+					textScroller.AddScrollText("Now go get some more fish!");
 					tutorialMode = false;
+				} else if (spamFilter) {
+					textScroller.AddScrollText("Press SPACE when Ready.");
+					spamFilter = false;
 				}
 
 				if (Input.GetKeyDown(KeyCode.Space)) {
+					spamFilter = true;
 					currentState = State.Aim;
 				}
 
@@ -241,7 +246,7 @@ public class PlayerController : MonoBehaviour
 						textScroller.AddScrollText("Wieeeeee!");
 						textScroller.AddScrollText("");
 					} else {
-						textScroller.AddScrollText("Here we go again");
+						textScroller.AddScrollText("Here we go again", true, true);
 					}
 					currentState = State.Casting;
 					currentPositionIndex = 0;
@@ -345,7 +350,7 @@ public class PlayerController : MonoBehaviour
 						textScroller.AddScrollText("Use ACTIONS to tire it out.");
 						textScroller.AddScrollText("Some work better than others.");
 						textScroller.AddScrollText("The fish is struggling!");
-						textScroller.AddScrollText("Try Slack");
+						textScroller.AddScrollText("Try SLACK.");
 					}
 				}
 
@@ -370,10 +375,8 @@ public class PlayerController : MonoBehaviour
 						rewardSystem.FishCaught(currentXP, textScroller);
 						Destroy(fishObject);
 					} else if (tutorialMode) {
-						textScroller.AddScrollText("You will get one next Time");
+						textScroller.AddScrollText("You will get one next time");
 						this.currentState = State.Aim;
-					} else {
-						textScroller.AddScrollText("It broke free");
 					}
 					animator.SetTrigger("Reset");
 					equippedBait.Reset();

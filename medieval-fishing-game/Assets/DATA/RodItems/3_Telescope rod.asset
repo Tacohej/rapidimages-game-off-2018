@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,7 +13,7 @@ MonoBehaviour:
   m_Name: 3_Telescope rod
   m_EditorClassIdentifier: Assembly-CSharp::RodItem
   title: Telescope Rod
-  boon: Better than a finger
+  boon: Better than a stick
   flavorText: '''Telescopic fishing rods are designed to collapse down to a short
     length and open to a long rod.   This one just has a telescope attached though.'''
   diplayImage: {fileID: 21300000, guid: f6615b45ceb89564885043abcdff5930, type: 3}

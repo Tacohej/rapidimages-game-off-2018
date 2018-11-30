@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -18,6 +19,6 @@ MonoBehaviour:
   rewardLevel3: {fileID: 11400000, guid: 35a1b29cd7e8ad84bb77099bc117068a, type: 2}
   rewardLevel5: {fileID: 11400000, guid: 0a6a8b1b63fb86a4ba7a7e6cf15256c0, type: 2}
   rewardLevel7: {fileID: 11400000, guid: e9901138db51c3643ac99f5f99967f83, type: 2}
-  currentLevel: 2
+  currentLevel: 5
   baseLevelUp: 100
-  baseLevelScaleFactor: 300
+  baseLevelScaleFactor: 150

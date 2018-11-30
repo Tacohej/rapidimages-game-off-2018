@@ -24,8 +24,8 @@ public class SceneHandler
 			scenePathsList = new ArrayList ();
 			sceneStack = new Stack ();
 
-			scenePathsList.Add("SampleScene");
-			scenePathsList.Add("MainMenuScene");
+			scenePathsList.Add("IntroScene");
+			scenePathsList.Add("Final");
 		}
 	}
 

@@ -7,6 +7,7 @@ public class MainMenuSceneHandler : MonoBehaviour
 	void Start () 
 	{
 		SceneHandler.Init ();
+		GameObject.Find("SoundManager").GetComponent<SoundManager>().PlayMusicFile("Music/Unsafe Waters-04");
 	}
 
     public void ChangeScene(string sceneName){
