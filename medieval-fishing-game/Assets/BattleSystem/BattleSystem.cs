@@ -38,7 +38,7 @@ public class BattleSystem : ScriptableObject {
     [SerializeField]
     private FishStats fishStats;
     [SerializeField]
-    private BaitStats baitStats;
+    private RodItem rodItem;
 
     public int maxPlayerStamina = 1;
     public int maxFishStamina = 1;
@@ -60,13 +60,13 @@ public class BattleSystem : ScriptableObject {
         return coolDownTime > 0;
     }
 
-	public void StartBattle (FishStats fishStats, BaitStats baitStats, TextScroller textScroller, bool tutorialMode)
+	public void StartBattle (FishStats fishStats, RodItem rodItem, TextScroller textScroller, bool tutorialMode)
     {
         this.textScroller = textScroller;
         this.tutorialMode = tutorialMode;
         this.fishStats = fishStats;
-        this.baitStats = baitStats;
-        playerStamina = baitStats.stamina;
+        this.rodItem = rodItem;
+        playerStamina = rodItem.stamina;
         fishStamina = fishStats.stamina;
         maxPlayerStamina = playerStamina;
         maxFishStamina = fishStamina;
@@ -96,7 +96,7 @@ public class BattleSystem : ScriptableObject {
                 escapeTimer -= deltaTime;
                 
                 if (playerState == PlayerState.Pulling) {
-                    fishStamina -= baitStats.damage * 20;
+                    fishStamina -= rodItem.damage * 20;
                     escapeTimer = 0;
                     coolDownTime = 0;
                     playerState = PlayerState.Idle;
@@ -119,7 +119,7 @@ public class BattleSystem : ScriptableObject {
             case FishState.Exhausted:
             {
                 if (playerState == PlayerState.Reeling) {
-                    fishStamina -= baitStats.damage;
+                    fishStamina -= rodItem.damage;
                 } else {
                     fishStamina = Mathf.Min(fishStamina + fishStats.staminaRegen, fishStats.stamina);
                 }
@@ -130,10 +130,10 @@ public class BattleSystem : ScriptableObject {
                 if (playerState == PlayerState.Reeling)
                 {
                     playerStamina -= fishStats.damage;
-                    fishStamina -= baitStats.damage;
+                    fishStamina -= rodItem.damage;
                 } else if (playerState == PlayerState.Slacking)
                 {
-                    playerStamina = Mathf.Min(playerStamina + baitStats.staminaRegen, baitStats.stamina);
+                    playerStamina = Mathf.Min(playerStamina + rodItem.staminaRegen, rodItem.stamina);
                 } else {
                     playerStamina -= fishStats.staminaRegen;
                 }

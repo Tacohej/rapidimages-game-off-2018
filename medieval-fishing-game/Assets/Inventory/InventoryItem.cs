@@ -15,6 +15,10 @@ public abstract class InventoryItem : ScriptableObject {
 [CreateAssetMenu (menuName = "MedievalFishing/Inventory/Rod")]
 public class RodItem : InventoryItem {
 
+	[Header("Battle")]
+	public int stamina = 10000;
+	public int staminaRegen = 5;
+	public int damage = 20;
 }
 
 [CreateAssetMenu (menuName = "MedievalFishing/Inventory/Bait")]

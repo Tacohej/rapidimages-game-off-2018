@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Bait : MonoBehaviour {
 	
-	[SerializeField]
 	private GameObject hookedFish;
-	[SerializeField]
 	private bool isTaken = false;
 
-	public BaitStats baitStats;
+	public BaitItem baitItem;
 
 	public enum Type
 	{
